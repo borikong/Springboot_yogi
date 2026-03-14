@@ -1,0 +1,15 @@
+@charset "UTF-8";
+
+.footer-div1{
+	background-color: gray;
+	height: 300px;
+}
+.footer-div1 div div{
+	margin: 0 auto;
+	width: 300px;
+	color: white;
+}
+.footer-a{
+	text-decoration: none;
+	color: white;
+}

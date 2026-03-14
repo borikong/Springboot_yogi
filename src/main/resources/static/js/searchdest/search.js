@@ -1,0 +1,123 @@
+/**
+ * 
+ */
+function submit() {
+	document.submitForm.submit(); // Submits the form without the button
+}
+
+//function back() {
+//	window.location.href="index.jsp";
+//}
+
+
+
+$(function() {
+
+	var $likeBtn = $('.icon2.heart');
+
+	$likeBtn
+		.click(function() {
+			var data = $(this).data(); //click 메서드 안에 있어야 가져올 수 있다
+
+			console.log('c 데이터' + data.c);
+			console.log(document.priorityform.money.value)
+			var money=document.priorityform.money.value;
+			var landscape=document.priorityform.landscape.value;
+			var fun=document.priorityform.fun.value;
+
+			if(data.c==""){ //로그인 상태가 아니라면
+				alert("로그인이 필요한 서비스입니다!")
+			}else if(data.b == 'active') { //좋아요 버튼이 활성화된 상태라면
+				$likeBtn
+				//활성화 해제하고
+				$(this).data("b", "nonactive");
+				//console.log("remove data");
+
+				//좋아요 데이터 삭제
+				var url = 'Like.de?cmd=dislike&dest=' + data.a + "&page=search&money="+money+"&landscape="+landscape+"&fun="+fun;
+				$(location).attr('href', url);
+
+			} else { //좋아요 버튼이 비활성화된 상태라면
+				//활성화 설정하고
+				$(this).data("b", "active");
+				//console.log("active data");		
+
+				//좋아요 데이터 추가
+				var url = 'Like.de?cmd=like&dest=' + data.a + "&page=search&money="+money+"&landscape="+landscape+"&fun="+fun;
+				$(location).attr('href', url);
+			}
+
+		})
+
+})
+
+
+
+$(function() {
+
+	var $likeBtn = $('.icon2.heart2');
+	//var $likeBtn = $('#likebtn2도쿄타워');
+
+	$likeBtn
+		.click(function() {
+			var data = $(this).data(); //click 메서드 안에 있어야 가져올 수 있다
+
+			if(data.c==""){ //로그인 상태가 아니라면
+				alert("로그인이 필요한 서비스입니다!")
+			}else if (data.b == 'active') { //좋아요 버튼이 활성화된 상태라면
+				$likeBtn
+				//활성화 해제하고
+				$(this).data("b", "nonactive");
+				//console.log("remove data");
+
+				//좋아요 데이터 삭제
+				var url = 'Like.de?cmd=dislike&dest=' + data.a + "&page=detail";
+				$(location).attr('href', url);
+
+			} else { //좋아요 버튼이 비활성화된 상태라면
+				//활성화 설정하고
+				$(this).data("b", "active");
+				//console.log("active data");		
+
+				//좋아요 데이터 추가
+				var url = 'Like.de?cmd=like&dest=' + data.a + "&page=detail";
+				$(location).attr('href', url);
+			}
+
+		})
+
+})
+
+
+//$(function() {
+//	var $likeBtn = $('.icon2.heart2');
+//
+//	$likeBtn
+//		.click(function() {
+//			$likeBtn.toggleClass('active');
+//			if ($likeBtn.hasClass('active')) {
+//
+//
+//				$(this)
+//					.find('img')
+//					.attr(
+//						{
+//							'src': 'https://cdn-icons-png.flaticon.com/512/803/803087.png',
+//							alt: '찜하기 완료'
+//						});
+//			} else {
+//
+//				$("#like_frm").attr("action", "Like.de?cmd=dislike").submit()
+//
+//				$(this).find('i').removeClass('fas').addClass('far')
+//				$(this)
+//					.find('img')
+//					.attr(
+//						{
+//							'src': 'https://cdn-icons-png.flaticon.com/512/812/812327.png',
+//							alt: "찜하기"
+//						})
+//			}
+//		})
+//
+//})

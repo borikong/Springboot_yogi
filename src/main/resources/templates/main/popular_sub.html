@@ -1,0 +1,20 @@
+<link th:href="@{/css/common/popular_sub.css}" rel="stylesheet">
+
+<div class="pop-main">
+	<h2 class="heading">인기 여행지</h2>
+
+		<div th:if="${poplist!=null}" class="row">
+			<div class="col" th:each="vo : ${poplist}">
+				<div class="card">
+					<img th:src="${vo.DEST_IMG}" class="card-img-top" alt="...">
+					<div class="card-body">
+						<h5 class="card-title" th:text="${vo.DEST_NAME}"></h5>
+						<p class="card-text" th:text="${vo.getDEST_TAG_STR}"></p>
+<!--							<a th:href="${pageContext.request.contextPath}/search_main/GetDestDetailView.de?dest_name=${vo.DEST_NAME}" class="btn-main">상세 보기</a>-->
+						<img th:src="@{pic/heart2.png}" alt="like">
+						<span class="destcnt" th:text="${vo.DEST_CNT}"></span>
+					</div>
+				</div>
+			</div>
+		</div>
+</div>

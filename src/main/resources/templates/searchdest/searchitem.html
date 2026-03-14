@@ -1,0 +1,75 @@
+<link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+
+<div th:if="${#lists.isEmpty(destlist)}" id="noresults">
+	<p align="center">검색된 결과가 없습니다.</p>
+</div>
+
+<div th:each="vo : ${destlist}" class="resume-wrap d-flex ftco-animate">
+	<div class="text pl-3">
+		<!-- 				여행지 이미지 클릭시 여행지 상세페이지 -->
+		<img th:src="${vo.destImg}" class="rounded float-start" alt="destimg"
+			id="dest_img" width="400px">
+		<a th:href="@{/search_main/GetDestDetailView?dest_name=${vo.destName}}" th:name="${vo.destName}">
+			<span class="rgyBadge" th:text="${vo.destCountry}"></span>&nbsp;
+			<span id="dest_select" th:text="${vo.destName}"></span>
+		</a>
+
+		<div>
+			<span class="position">비용</span>
+			<progress th:value="${vo.destMoney}" max="100"></progress>
+		</div>
+		<div>
+			<span class="position">경치</span>
+			<progress th:value="${vo.destLandscape}" max="100"></progress>
+		</div>
+		<div>
+			<span class="position">재미</span>
+			<progress th:value="${vo.destFun}" max="100" id="pg"></progress>
+		</div>
+
+		<p id="content_preview" th:text="${vo.destSummary}">...</p>
+
+		<div>
+			<a href="javascript:;"
+			   th:data-a="${vo.destName}"
+			   th:data-b="${#lists.contains(likeList, vo.destName) ? 'active' : 'nonactive'}"
+			   th:data-c="${loginID}"
+			   th:class="${#lists.contains(likeList, vo.destName) ? 'icon2 heart active' : 'icon2 heart'}">
+
+				<img th:src="${#lists.contains(likeList, vo.destName) ?
+                     'https://cdn-icons-png.flaticon.com/512/803/803087.png' :
+                     'https://cdn-icons-png.flaticon.com/512/812/812327.png'}"
+
+					 th:alt="${#lists.contains(likeList, vo.destName) ?
+                     '찜하기 완료' : '찜하기'}">
+			</a>
+
+		</div>
+
+	</div>
+</div>
+
+<script th:src="@{/js/searchdest/jquery.min.js}"></script>
+<script th:src="@{/js/searchdest/jquery-migrate-3.0.1.min.js}"></script>
+<script th:src="@{/js/searchdest/jquery.easing.1.3.js}"></script>
+<script th:src="@{/js/searchdest/jquery.waypoints.min.js}"></script>
+<script th:src="@{/js/searchdest/jquery.stellar.min.js}"></script>
+<script th:src="@{/js/searchdest/owl.carousel.min.js}"></script>
+<script th:src="@{/js/searchdest/jquery.magnific-popup.min.js}"></script>
+<script th:src="@{/js/searchdest/aos.js}"></script>
+<script th:src="@{/js/searchdest/jquery.animateNumber.min.js}"></script>
+<script th:src="@{/js/searchdest/scrollax.min.js}"></script>
+<script th:src="@{/js/searchdest/main.js}"></script>
+<script th:src="@{/js/searchdest/search.js}"></script>
+
+<script th:inline="javascript">
+	// 찜하고 해당 위치로 이동하기 위해서
+	// a 태그의 name 속성에 넣어준 값을 매칭해서 이동
+
+	var thisdest = [[${thisdest}]];
+
+	window.onload = function(){
+		var newlocation = location.href.substring(0, location.href.indexOf("#"));
+		setTimeout(() => location.href = newlocation + "#" + thisdest, 50);
+	}
+</script>

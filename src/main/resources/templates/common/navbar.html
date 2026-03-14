@@ -1,0 +1,50 @@
+
+<script th:src="@{/js/common/Header.js}" defer></script>
+<link rel="stylesheet" th:href="@{/css/common/Header.css}" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+<link href="https://fonts.googleapis.com/css2?family=Jua&family=Kiwi+Maru&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Kiwi+Maru&display=swap" rel="stylesheet">
+<script src="https://kit.fontawesome.com/3e7bdacc74.js" crossorigin="anonymous"></script>
+
+<div class="nav_menu">
+    <ul>
+        <li th:if="${loginId == null}">
+            <a th:href="@{/login}">로그인</a>
+        </li>
+        <li th:if="${loginId == null}">
+            <a th:href="@{/newMember}">회원가입</a>
+        </li>
+
+        <li th:if="${loginId !=null}">${loginID}님 어서오세요</li>
+        <li th:if="${loginId !=null}"><a th:href="@{/mypage}">마이페이지</a></li>
+        <li th:if="${loginId !=null}"><a href="@{/logout}">로그아웃</a></li>
+
+    </ul>
+</div>
+<nav class="navbar">
+    <!-- 헤드바  -->
+    <div class="navbar_logo">
+        <!-- 로고 -->
+        <i class="bi bi-globe-central-south-asia"></i>
+        <!-- 로고 아이콘 -->
+        <a th:href="@{/}">요기조기</a>
+        <!-- 로고 눌렀을 때 사이트로 이동 -->
+    </div>
+
+    <ul class="navbar_menu">
+        <!-- 메뉴 -->
+        <li><a th:href="@{/searchdest}">여행지탐색</a></li>
+        <li><a th:href="@{/community}">요기커뮤니티</a></li>
+        <li><a th:href="@{/service}">고객센터</a>
+            <ul class="drop_menu3">
+                <li><a class="nav_a" th:href="@{/notice}">공지사항</a></li>
+                <li><a class="nav_a" th:href="@{/faq}">자주묻는질문</a></li>
+                <li><a class="nav_a" th:href="@{/inquiry}">문의게시판</a></li>
+            </ul></li>
+    </ul>
+
+    <a href="#" class="navbar_toggleBtn"> <!-- 화면 작을 때의 토글바 --> <!-- href에 #을 넣지 않으면 계속 창이 다시 열리게되니 주의 -->
+        <i class="bi bi-list"></i>
+    </a>
+</nav>
+
