@@ -18,27 +18,21 @@ public class DestinationServiceImpl implements DestinationService {
     //키워드로 검색 :: 관광지명/나라
     //TODO condition 넘겨주기, 우선순위 넘겨주기 , like 처리는 api로
     @Override
-    public List<DestinationResponse> searchDestByKeyWord(DestinationRequest request) {
+    public List<DestinationResponse> searchDestByKeyword(DestinationRequest request) {
 
-        List<DestinationResponse> destList = new ArrayList<>();
+        List<Destination> destList;
 
         //관광지명으로 검색
-        if(request.getCondition().equals("1")){
-            for(Destination dest : destinationRepository.findByDestNameContaining(request.getKeyword())){
-                destList.add(new DestinationResponse(dest));
-            }
+        if("DEST_NAME".equals(request.getCondition())){
+            destList=destinationRepository.findByDestNameContaining(request.getKeyword());
         //나라로 검색
-        }else if(request.getCondition().equals("2")){
-            for(Destination dest : destinationRepository.findByDestCountryContaining(request.getKeyword())){
-                destList.add(new DestinationResponse(dest));
-            }
+        }else if("COUNTRY".equals(request.getCondition())){
+            destList=destinationRepository.findByDestCountryContaining(request.getKeyword());
         }else {
-            for(Destination dest : destinationRepository.findAll()){
-                destList.add(new DestinationResponse(dest));
-            }
+            destList=destinationRepository.findAll();
         }
 
-        return destList;
+        return destList.stream().map(DestinationResponse::new).toList();
     }
 
 }

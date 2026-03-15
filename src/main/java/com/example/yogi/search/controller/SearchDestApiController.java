@@ -17,6 +17,6 @@ public class SearchDestApiController {
 
     @GetMapping("/searchdest/destinations")
     public List<DestinationResponse> Search(DestinationRequest request){
-        return destinationService.searchDestByKeyWord(request);
+        return destinationService.searchDestByKeyword(request);
     }
 }
