@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface DestinationService {
 
-    List<DestinationResponse> searchDestByKeyword(DestinationRequest destinationRequest);
+    List<DestinationResponse> searchDestByKeyword(DestinationRequest request);
+    List<DestinationResponse> searchDestByPriority(DestinationRequest request);
 
 }

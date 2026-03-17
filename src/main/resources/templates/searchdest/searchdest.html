@@ -14,6 +14,20 @@
 
     <title>여행지 조회</title>
 </head>
+<script language="JavaScript">
+    function checkPriority(){
+        const money = document.getElementById("money").value;
+        const landscape = document.getElementById("landscape").value;
+        const fun = document.getElementById("fun").value;
+
+        if(!money||!landscape||!fun){
+            alert("우선순위를 모두 선택해주세요.");
+            return false;
+        }
+        return true;
+    }
+
+</script>
 
 <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
 
@@ -23,43 +37,43 @@
 <div class="container" id="header">
 
     <form action="/searchdest/search" method="post" class="search_form">
-        <label class="search_head" for="keyword">키워드로 검색</label>&nbsp;
-        <select class="form-select" id="keyword" name="condition">
+        <label class="search_head" for="keyword">키워드로 검색</label>&nbsp;<br>
+        <select class="form-select d-inline-block w-auto" id="keyword" name="condition">
             <option value="DEST_NAME" th:selected="${request.condition == 'DEST_NAME'}">관광지</option>
             <option value="COUNTRY" th:selected="${request.condition == 'COUNTRY'}">나라</option>
         </select>
 
-        <input class="form-control" type="text" name="keyword"
+        <input class="form-control d-inline-block w-auto" type="text" name="keyword"
                placeholder="검색어 입력" aria-label="default input example" th:value="${request.keyword}"> &nbsp;
-        <input class="btn btn-outline-dark" type="submit" value="검색">
-        <input class="btn btn-outline-dark" type="submit" value="전체">
+        <button class="btn btn-outline-dark" type="submit" name= "action" value="search">검색</button>
+        <button class="btn btn-outline-dark" type="submit" name= "action" value="all">전체</button>
 
-    <br>
+    <br><br>
     <span class="search_head">우선순위로 검색&nbsp;
     <span class="tooltip_custom">?<span class="tooltip-content_custom">각 속성의 우선순위에 따라 가중치를 반영하여 검색합니다. </span></span></span> <br>
 
     <label class="search_sub" for="money">비용</label>
     <select class="form-select" id="money" name="money">
-        <option th:selected="${request.money==0}">-</option>
-        <option value="1" th:selected="${request.money==1}">1순위</option>
-        <option value="2" th:selected="${request.money==2}">2순위</option>
-        <option value="3" th:selected="${request.money==3}">3순위</option>
+        <option th:selected="${request.money=='0'}">-</option>
+        <option value="1" th:selected="${request.money=='1'}">1순위</option>
+        <option value="2" th:selected="${request.money=='2'}">2순위</option>
+        <option value="3" th:selected="${request.money=='3'}">3순위</option>
     </select>
     <label class="search_sub" for="landscape">경치</label>
     <select class="form-select" name="landscape" id="landscape">
-        <option th:selected="${request.land==0}">-</option>
-        <option value="1" th:selected="${request.land==1}">1순위</option>
-        <option value="2" th:selected="${request.land==2}">2순위</option>
-        <option value="3" th:selected="${request.land==3}">3순위</option>
+        <option th:selected="${request.landscape=='0'}">-</option>
+        <option value="1" th:selected="${request.landscape=='1'}">1순위</option>
+        <option value="2" th:selected="${request.landscape=='2'}">2순위</option>
+        <option value="3" th:selected="${request.landscape=='3'}">3순위</option>
     </select>
     <label class="search_sub" for="fun">재미</label>
     <select class="form-select" name="fun" id="fun">
-        <option th:selected="${request.fun==0}">-</option>
-        <option value="1" th:selected="${request.fun==1}">1순위</option>
-        <option value="2" th:selected="${request.fun==2}">2순위</option>
-        <option value="3" th:selected="${request.fun==3}">3순위</option>
+        <option th:selected="${request.fun=='0'}">-</option>
+        <option value="1" th:selected="${request.fun=='1'}">1순위</option>
+        <option value="2" th:selected="${request.fun=='2'}">2순위</option>
+        <option value="3" th:selected="${request.fun=='3'}">3순위</option>
     </select> &nbsp;
-    <button class="btn btn-outline-dark" type="submit">검색</button>
+    <button class="btn btn-outline-dark" type="submit" name= "action" value="priSearch" onclick="return checkPriority()">검색</button>
 
     </form>
     <br>
@@ -84,16 +98,6 @@
     <h2 class="heading">Tourist Attractions</h2>
     <div th:replace="searchdest/searchitem"></div>
 </div>
-
-<!-- loader -->
-<!--<div id="ftco-loader" class="show fullscreen">-->
-<!--    <svg class="circular" width="48px" height="48px">-->
-<!--        <circle class="path-bg" cx="24" cy="24" r="22" fill="none"-->
-<!--                stroke-width="4" stroke="#eeeeee" />-->
-<!--        <circle class="path" cx="24" cy="24" r="22" fill="none"-->
-<!--                stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" />-->
-<!--    </svg>-->
-<!--</div>-->
 
 <div th:replace="common/footer"></div>
 

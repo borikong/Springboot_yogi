@@ -31,6 +31,13 @@ public class DestinationResponse {
     @Setter
     private double destTotal;               //가중치를 곱한 여행지 점수
     private String destSummary;             //DEST_CONTENT를 190자까지 잘라냄
+    @Setter
+    private String money;
+    @Setter
+    private String landscape;
+    @Setter
+    private String fun;
+
 
     //Entity -> DTO
     public DestinationResponse(Destination destination){
