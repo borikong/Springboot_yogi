@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+          crossorigin="anonymous">
+  <link th:href="@{/css/searchdest/searchdest.css}" rel="stylesheet">
+  <link rel="stylesheet" th:href="@{/css/searchdest/style2.css}">
+  <link rel="stylesheet" th:href="@{/css/searchdest/animate.css}">
+
+  <title>여행지 상세</title>
+</head>
+<body>
+
+<div>
+  <div th:replace="/common/navbar"></div>
+  <hr class="deep_hr">
+  <div class="container">
+
+    <h3 class="view_label">
+      <span class="rgyBadge" th:text="${detail.destCountry}"></span>
+      <span id="dest_name" th:text="${detail.destName}"></span>
+
+      <div id="likebtn">
+        <!-- 					해당 관광지가 찜 리스트에 있으면 하트찜 활성화 -->
+        <a href="javascript:;" th:data-a="${detail.destName}"
+           th:data-b="${detail.isLiked}? 'active':'nonactive'" th:data-c="${loginID}"
+           th:class="${detail.isLiked} ? 'icon2 heart2 active' :'icon2 heart2'">&nbsp;&nbsp;
+        <img th:src="${detail.isLiked} ?'https://cdn-icons-png.flaticon.com/512/803/803087.png':'https://cdn-icons-png.flaticon.com/512/812/812327.png'"
+            th:alt="${detail.isLiked} ?'찜하기 완료':'찜하기'">&nbsp;&nbsp;
+        </a>
+      </div>
+    </h3>
+    <div style="display: inline-block; padding-left: 600px;">
+      <input type="button" class="listbtn" value="목록으로"
+             onclick="window.location.href='index.jsp';">
+    </div>
+    <div align="center">
+      <table>
+        <tr>
+          <td width="40%">
+            <img th:src="${detail.destImg}" class="img-thumbnail" id="dest_img" th:alt="${detail.destName}" /></td>
+          <td width="50%">
+            <div class="content-container">
+              <h2 class="detail-label">여행지 평점&nbsp;<span class="tooltip_custom">
+                ?<span class="tooltip-content_custom" style="width: 310px;">사용자 리뷰를 분석하여 예측한 평점입니다. </span></span>
+              </h2>
+              <div>
+                <span class="position">비용</span>
+                <progress th:value="${detail.destMoney}" max="100"></progress>
+              </div>
+              <div>
+                <span class="position">경치</span>
+                <progress th:value="${detail.destLandscape}" max="100"></progress>
+              </div>
+              <div>
+                <span class="position">재미</span>
+                <progress th:value="${detail.destFun}" max="100"></progress>
+              </div>
+              <br>
+              <h2 class="detail-label">여행지 태그&nbsp;<span class="tooltip_custom">?
+                <span class="tooltip-content_custom" style="width: 320px;">사용자 리뷰에서 자동으로 추출한 태그입니다. </span></span>
+              </h2>
+              <span th:text="${detail.destTag}"></span>
+              <br><br>
+              <span class="detail-label">찜&nbsp;
+                <span class="like-cnt" th:text="${detail.destCnt}"></span>명</span>
+            </div>
+          </td>
+        </tr>
+
+      </table>
+    </div>
+    <div class="content-container">
+      <p class="dest_content" th:text="${detail.destContent}"><br>
+        <br>출처 : <span th:text="${detail.destReference}"></span>
+      </p>
+    </div>
+  </div>
+</div>
+<br>
+<br>
+<div th:replace="/common/footer"></div>
+
+</body>
+
+</html>
+<script th:src="@{/js/searchdest/jquery.min.js}"></script>
+<script th:src="@{/js/searchdest/search.js}"></script>
