@@ -1,3 +1,10 @@
+<script>
+	function submitDest(destId) {
+		const form = document.getElementById("destForm");
+		document.getElementById("destId").value = destId;
+		form.submit();
+	}
+</script>
 <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900" rel="stylesheet">
 
 <div th:if="${#lists.isEmpty(destlist)}" id="noresults">
@@ -6,12 +13,12 @@
 
 <div th:each="vo : ${destlist}" class="resume-wrap d-flex ftco-animate">
 	<div class="text pl-3">
-		<!-- 				여행지 이미지 클릭시 여행지 상세페이지 -->
-		<img th:src="${vo.destImg}" class="rounded float-start" alt="destimg"
-			id="dest_img" width="400px">
-		<a th:href="@{/search_main/GetDestDetailView?dest_name=${vo.destName}}" th:name="${vo.destName}">
+		<!--여행지 클릭시 여행지 상세페이지 -->
+		<img th:src="${vo.destImg}" class="rounded float-start" alt="destimg" id="dest_img" width="400px">
+		<a href="javascript:void(0);"
+		   th:onclick="|submitDest(${vo.destId})|">
 			<span class="rgyBadge" th:text="${vo.destCountry}"></span>&nbsp;
-			<span id="dest_select" th:text="${vo.destName}"></span>
+			<span class="dest_select" th:text="${vo.destName}"></span>
 		</a>
 
 		<div>
@@ -30,7 +37,7 @@
 		<p id="content_preview" th:text="${vo.destSummary}">...</p>
 
 		<div>
-			<a href="javascript:;"
+			<a href="#"
 			   th:data-a="${vo.destName}"
 			   th:data-b="${#lists.contains(likeList, vo.destName) ? 'active' : 'nonactive'}"
 			   th:data-c="${loginID}"
@@ -73,3 +80,7 @@
 		setTimeout(() => location.href = newlocation + "#" + thisdest, 50);
 	}
 </script>
+
+<form id="destForm" th:action="@{/searchdest/detail}" method="get">
+	<input type="hidden" name="destId" id="destId">
+</form>

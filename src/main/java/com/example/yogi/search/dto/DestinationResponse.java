@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter
+@Setter
 public class DestinationResponse {
 
     private Long destId;                    //여행지 id(식별번호 unique)
@@ -26,17 +27,13 @@ public class DestinationResponse {
     private Integer destCnt;                //여행지 좋아요 개수
     private LocalDateTime insDate;
     private LocalDateTime updDate;
-    @Setter
+
     private List<String> likelist;
-    @Setter
     private double destTotal;               //가중치를 곱한 여행지 점수
     private String destSummary;             //DEST_CONTENT를 190자까지 잘라냄
-    @Setter
-    private String money;
-    @Setter
-    private String landscape;
-    @Setter
-    private String fun;
+    private String money;                   //선택한 우선순위
+    private String landscape;               //선택한 우선순위
+    private String fun;                     //선택한 우선순위
 
 
     //Entity -> DTO
@@ -58,7 +55,7 @@ public class DestinationResponse {
         setDestSummary();
     }
 
-    public void setDestSummary() {
+    private void setDestSummary() {
         if(this.destContent.length()>190){
             this.destSummary=this.destContent.substring(0,190);
         }else this.destSummary=this.destContent;

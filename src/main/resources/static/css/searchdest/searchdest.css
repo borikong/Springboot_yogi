@@ -34,17 +34,17 @@ progress {
 }
 
 /* 여행지 이름에 마우스 over */
-h2#dest_select:hover {
+h2 .dest_select:hover {
 	color: #3e64ff;
 	cursor: pointer;
 }
 
-#dest_select:hover {
+.dest_select:hover {
 	color: #3e64ff;
 	cursor: pointer;
 }
 
-#dest_select {
+.dest_select {
 	font-size: 24px;
 	font-weight: 700;
 	line-height: 1.5;
