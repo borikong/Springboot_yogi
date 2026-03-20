@@ -36,63 +36,69 @@
 <div class="container" id="header">
 
     <form action="/searchdest/search" method="post" class="search_form">
-        <label class="search_head" for="keyword">키워드로 검색</label>&nbsp;<br>
-        <select class="form-select d-inline-block w-auto" id="keyword" name="condition">
-            <option value="DEST_NAME" th:selected="${request.condition == 'DEST_NAME'}">관광지</option>
-            <option value="COUNTRY" th:selected="${request.condition == 'COUNTRY'}">나라</option>
-        </select>
+        <!-- 1. 키워드 검색 -->
+        <div class="search-box">
+            <label class="search_title" for="keyword">키워드로 검색</label>
+            <div class="search-row">
+                <select class="form-select w-auto" id="keyword" name="condition">
+                    <option value="DEST_NAME" th:selected="${request.condition == 'DEST_NAME'}">관광지</option>
+                    <option value="COUNTRY" th:selected="${request.condition == 'COUNTRY'}">나라</option>
+                </select>
 
-        <input class="form-control d-inline-block w-auto" type="text" name="keyword"
-               placeholder="검색어 입력" aria-label="default input example" th:value="${request.keyword}"> &nbsp;
-        <button class="btn btn-outline-dark" type="submit" name= "action" value="search">검색</button>
-        <button class="btn btn-outline-dark" type="submit" name= "action" value="all">전체</button>
+                <input class="form-control keyword-input" type="text" name="keyword"
+                       placeholder="검색어 입력" aria-label="default input example" th:value="${request.keyword}"> &nbsp;
+                <button class="btn btn-dark" type="submit" name= "action" value="search">검색</button>
+                <button class="btn btn-outline-secondary" type="submit" name= "action" value="all">전체</button>
+            </div>
+        </div>
+        <!-- 2. 우선순위로 검색 -->
+        <div class="search-box">
+            <span class="search_title">우선순위로 검색&nbsp<span class="tooltip_custom">?<span class="tooltip-content_custom">각 속성의 우선순위에 따라 가중치를 반영하여 검색합니다.</span></span></span>
 
-    <br><br>
-    <span class="search_head">우선순위로 검색&nbsp;
-    <span class="tooltip_custom">?<span class="tooltip-content_custom">각 속성의 우선순위에 따라 가중치를 반영하여 검색합니다. </span></span></span> <br>
-
-    <label class="search_sub" for="money">비용</label>
-    <select class="form-select" id="money" name="money">
-        <option th:selected="${request.money=='0'}">-</option>
-        <option value="1" th:selected="${request.money=='1'}">1순위</option>
-        <option value="2" th:selected="${request.money=='2'}">2순위</option>
-        <option value="3" th:selected="${request.money=='3'}">3순위</option>
-    </select>
-    <label class="search_sub" for="landscape">경치</label>
-    <select class="form-select" name="landscape" id="landscape">
-        <option th:selected="${request.landscape=='0'}">-</option>
-        <option value="1" th:selected="${request.landscape=='1'}">1순위</option>
-        <option value="2" th:selected="${request.landscape=='2'}">2순위</option>
-        <option value="3" th:selected="${request.landscape=='3'}">3순위</option>
-    </select>
-    <label class="search_sub" for="fun">재미</label>
-    <select class="form-select" name="fun" id="fun">
-        <option th:selected="${request.fun=='0'}">-</option>
-        <option value="1" th:selected="${request.fun=='1'}">1순위</option>
-        <option value="2" th:selected="${request.fun=='2'}">2순위</option>
-        <option value="3" th:selected="${request.fun=='3'}">3순위</option>
-    </select> &nbsp;
-    <button class="btn btn-outline-dark" type="submit" name= "action" value="priSearch" onclick="return checkPriority()">검색</button>
-
-    </form>
-    <br>
-    <span class="search_head">나만의 추천 여행지 리스트!&nbsp;
-        <span class="tooltip_custom">?
-            <span class="tooltip-content_custom">
-					비슷한 사용자 데이터를 토대로 여행지를 추천해드립니다.
+            <div class="search-row">
+                <label for="money">비용</label>
+                <select class="form-select w-auto" id="money" name="money">
+                    <option th:selected="${request.money=='0'}">-</option>
+                    <option value="1" th:selected="${request.money=='1'}">1순위</option>
+                    <option value="2" th:selected="${request.money=='2'}">2순위</option>
+                    <option value="3" th:selected="${request.money=='3'}">3순위</option>
+                </select>
+                <label for="landscape">경치</label>
+                <select class="form-select w-auto" name="landscape" id="landscape">
+                    <option th:selected="${request.landscape=='0'}">-</option>
+                    <option value="1" th:selected="${request.landscape=='1'}">1순위</option>
+                    <option value="2" th:selected="${request.landscape=='2'}">2순위</option>
+                    <option value="3" th:selected="${request.landscape=='3'}">3순위</option>
+                </select>
+                <label for="fun">재미</label>
+                <select class="form-select w-auto" name="fun" id="fun">
+                    <option th:selected="${request.fun=='0'}">-</option>
+                    <option value="1" th:selected="${request.fun=='1'}">1순위</option>
+                    <option value="2" th:selected="${request.fun=='2'}">2순위</option>
+                    <option value="3" th:selected="${request.fun=='3'}">3순위</option>
+                </select> &nbsp;
+                <button class="btn btn-dark" type="submit" name= "action" value="priSearch" onclick="return checkPriority()">검색</button>
+            </div>
+        </div>
+        <!-- 3. 추천 -->
+        <div class="search-box">
+            <span class="search_title">나만의 추천 여행지 리스트!&nbsp;
+                <span class="tooltip_custom">?
+                    <span class="tooltip-content_custom">
+                            비슷한 사용자 데이터를 토대로 여행지를 추천해드립니다.
+                    </span>
+                </span>
             </span>
-        </span>
-    </span>
-    <br>
-    <form th:action="RecommandList.de" method="get" class="search_form">
-        <button class="btn btn-outline-dark" type="submit">추천 리스트 보기</button>
+            <div class="search-row">
+                <button class="btn btn-outline-dark" type="submit">추천 리스트 보기</button>
+            </div>
+        </div>
     </form>
-
-
 </div>
 <br>
 <br>
 
+<!--여행지 검색 결과-->
 <div class="container">
     <h2 class="heading">Tourist Attractions</h2>
     <div th:replace="searchdest/searchitem"></div>

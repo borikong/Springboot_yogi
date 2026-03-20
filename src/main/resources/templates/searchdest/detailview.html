@@ -20,7 +20,7 @@
   <hr class="deep_hr">
   <div class="container">
 
-    <h3 class="view_label">
+    <div class="view_label">
       <span class="rgyBadge" th:text="${detail.destCountry}"></span>
       <span id="dest_name" th:text="${detail.destName}"></span>
 
@@ -33,20 +33,17 @@
             th:alt="${detail.isLiked} ?'찜하기 완료':'찜하기'">&nbsp;&nbsp;
         </a>
       </div>
-    </h3>
-    <div style="display: inline-block; padding-left: 600px;">
-      <input type="button" class="listbtn" value="목록으로"
-             onclick="window.location.href='index.jsp';">
+        <input type="button" class="listbtn" value="목록으로" th:onclick="|history.back()|">
     </div>
-    <div align="center">
+    <div id="detail-view">
       <table>
         <tr>
-          <td width="40%">
+          <td>
             <img th:src="${detail.destImg}" class="img-thumbnail" id="dest_img" th:alt="${detail.destName}" /></td>
-          <td width="50%">
+          <td>
             <div class="content-container">
               <h2 class="detail-label">여행지 평점&nbsp;<span class="tooltip_custom">
-                ?<span class="tooltip-content_custom" style="width: 310px;">사용자 리뷰를 분석하여 예측한 평점입니다. </span></span>
+                ?<span class="tooltip-content_custom">사용자 리뷰를 분석하여 예측한 평점입니다. </span></span>
               </h2>
               <div>
                 <span class="position">비용</span>
@@ -62,7 +59,7 @@
               </div>
               <br>
               <h2 class="detail-label">여행지 태그&nbsp;<span class="tooltip_custom">?
-                <span class="tooltip-content_custom" style="width: 320px;">사용자 리뷰에서 자동으로 추출한 태그입니다. </span></span>
+                <span class="tooltip-content_custom">사용자 리뷰에서 자동으로 추출한 태그입니다. </span></span>
               </h2>
               <span th:text="${detail.destTag}"></span>
               <br><br>
