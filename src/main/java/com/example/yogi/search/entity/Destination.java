@@ -26,7 +26,7 @@ public class Destination {
     @Column(name = "DEST_NAME_ENG")
     private String destNameEng;             //여행지 이름 영어
 
-    @Column(name = "DEST_CONTENT")
+    @Column(name = "DEST_CONTENT",columnDefinition = "TEXT")
     private String destContent;             //여행지 소개글
 
     @Column(name = "DEST_REFERENCE")

@@ -23,15 +23,15 @@
 
 		<div>
 			<span class="position">비용</span>
-			<progress th:value="${vo.destMoney}" max="100"></progress>
+			<progress th:value="${vo.destMoney}*99+1" max="100"></progress>
 		</div>
 		<div>
 			<span class="position">경치</span>
-			<progress th:value="${vo.destLandscape}" max="100"></progress>
+			<progress th:value="${vo.destLandscape}*99+1" max="100"></progress>
 		</div>
 		<div>
 			<span class="position">재미</span>
-			<progress th:value="${vo.destFun}" max="100" id="pg"></progress>
+			<progress th:value="${vo.destFun}*99+1" max="100"></progress>
 		</div>
 
 		<p id="content_preview" th:text="${vo.destSummary}">...</p>
