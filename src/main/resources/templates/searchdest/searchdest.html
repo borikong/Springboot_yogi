@@ -18,7 +18,6 @@
         const money = document.getElementById("money").value;
         const landscape = document.getElementById("landscape").value;
         const fun = document.getElementById("fun").value;
-
         if(!money||!landscape||!fun){
             alert("우선순위를 모두 선택해주세요.");
             return false;
@@ -39,7 +38,7 @@
         <!-- 1. 키워드 검색 -->
         <div class="search-box">
             <label class="search_title" for="keyword">키워드로 검색</label>
-            <div class="search-row">
+            <div class="search-row keyword-row">
                 <select class="form-select w-auto" id="keyword" name="condition">
                     <option value="DEST_NAME" th:selected="${request.condition == 'DEST_NAME'}">관광지</option>
                     <option value="COUNTRY" th:selected="${request.condition == 'COUNTRY'}">나라</option>
@@ -58,21 +57,21 @@
             <div class="search-row">
                 <label for="money">비용</label>
                 <select class="form-select w-auto" id="money" name="money">
-                    <option th:selected="${request.money=='0'}">-</option>
+                    <option value="" th:selected="${request.money=='0'}">-</option>
                     <option value="1" th:selected="${request.money=='1'}">1순위</option>
                     <option value="2" th:selected="${request.money=='2'}">2순위</option>
                     <option value="3" th:selected="${request.money=='3'}">3순위</option>
                 </select>
                 <label for="landscape">경치</label>
                 <select class="form-select w-auto" name="landscape" id="landscape">
-                    <option th:selected="${request.landscape=='0'}">-</option>
+                    <option value="" th:selected="${request.landscape=='0'}">-</option>
                     <option value="1" th:selected="${request.landscape=='1'}">1순위</option>
                     <option value="2" th:selected="${request.landscape=='2'}">2순위</option>
                     <option value="3" th:selected="${request.landscape=='3'}">3순위</option>
                 </select>
                 <label for="fun">재미</label>
                 <select class="form-select w-auto" name="fun" id="fun">
-                    <option th:selected="${request.fun=='0'}">-</option>
+                    <option value="" th:selected="${request.fun=='0'}">-</option>
                     <option value="1" th:selected="${request.fun=='1'}">1순위</option>
                     <option value="2" th:selected="${request.fun=='2'}">2순위</option>
                     <option value="3" th:selected="${request.fun=='3'}">3순위</option>

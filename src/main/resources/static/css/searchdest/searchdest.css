@@ -14,9 +14,17 @@
 	min-width: 50px;   /* 라벨 정렬 맞춤 */
 }
 
+/*키워드검색 한줄로*/
+.keyword-row {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	flex-wrap: nowrap;   /*  줄바꿈 방지 */
+}
+
 /* 검색창 테두리 */
 .search_form {
-	max-width: 800px;
+	max-width: 1100px;
 	margin: 30px auto;
 	font-family: TmonMonsori;
 }
@@ -108,11 +116,11 @@ h2 .dest_select:hover {
 
 /* 툴팁:임시 */
 .tooltip_custom {
-	font-size: 1.2rem;
+	font-size: 1rem;
 	position: relative;
 	display: inline-block;
 	background-color: gray;
-	border-radius: 20px;
+	border-radius: 30px;
 	padding-right: 10px;
 	padding-left: 10px;
 	color: white;
@@ -299,6 +307,11 @@ button, input {
 .form-control{
 	width: 75%;
 	display: inline;
+}
+/*키워드검색창*/
+.keyword-input {
+	flex: 1;        /* 남는 공간 다 먹음 */
+	min-width: 200px;
 }
 .img-top{
 	position:fixed;
