@@ -26,7 +26,7 @@
 
       <div id="likebtn">
         <!-- 					해당 관광지가 찜 리스트에 있으면 하트찜 활성화 -->
-        <a href="javascript:;" th:data-a="${detail.destName}"
+        <a href="javascript:void(0);" th:data-a="${detail.destId}"
            th:data-b="${detail.isLiked}? 'active':'nonactive'" th:data-c="${loginID}"
            th:class="${detail.isLiked} ? 'icon2 heart2 active' :'icon2 heart2'">&nbsp;&nbsp;
         <img th:src="${detail.isLiked} ?'https://cdn-icons-png.flaticon.com/512/803/803087.png':'https://cdn-icons-png.flaticon.com/512/812/812327.png'"

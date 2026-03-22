@@ -2,6 +2,8 @@ package com.example.yogi.member.service;
 
 import com.example.yogi.member.dto.MemberRequest;
 
+import java.util.List;
+
 public interface MemberService {
-    String findUserLikeById(String id);
+    List<Long> findUserLikeById(String id);
 }

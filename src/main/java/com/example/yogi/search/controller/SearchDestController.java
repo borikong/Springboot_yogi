@@ -3,6 +3,7 @@ package com.example.yogi.search.controller;
 import com.example.yogi.member.service.MemberService;
 import com.example.yogi.search.dto.DestinationRequest;
 import com.example.yogi.search.service.DestinationService;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,10 +21,12 @@ public class SearchDestController {
     private static final String ACTION_PRIORITY="priSearch";
 
     @RequestMapping({"/searchdest","/searchdest/index","/searchdest/search"})
-    public String index(Model model,DestinationRequest request,@RequestParam(required = false) String action){
+    public String index(Model model, DestinationRequest request,
+                        @RequestParam(required = false) String action,
+                        HttpSession session){
         model.addAttribute("request",request);
 
-        setLikeList(model,request.getLoginId());
+        setLikeList(model,(String)session.getAttribute("loginId"));
 
         if(ACTION_PRIORITY.equals(action)){
             //우선순위 검색

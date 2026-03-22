@@ -14,7 +14,7 @@
 <div th:each="vo : ${destlist}" class="resume-wrap d-flex ftco-animate">
 	<div class="text pl-3">
 		<!--여행지 클릭시 여행지 상세페이지 -->
-		<img th:src="${vo.destImg}" class="rounded float-start" alt="destimg" id="dest_img" width="400px">
+		<img th:src="${vo.destImg}" class="rounded float-start" th:alt="${vo.destName}" id="dest_img" width="400px">
 		<a href="javascript:void(0);"
 		   th:onclick="|submitDest(${vo.destId})|">
 			<span class="rgyBadge" th:text="${vo.destCountry}"></span>&nbsp;
@@ -37,11 +37,11 @@
 		<p id="content_preview" th:text="${vo.destSummary}">...</p>
 
 		<div>
-			<a href="#"
-			   th:data-a="${vo.destName}"
-			   th:data-b="${#lists.contains(likeList, vo.destName) ? 'active' : 'nonactive'}"
+			<a href="javascript:void(0);"
+			   th:data-a="${vo.destId}"
+			   th:data-b="${#lists.contains(likeList, vo.destId) ? 'active' : 'nonactive'}"
 			   th:data-c="${loginID}"
-			   th:class="${#lists.contains(likeList, vo.destName) ? 'icon2 heart active' : 'icon2 heart'}">
+			   th:class="${#lists.contains(likeList, vo.destId) ? 'icon2 heart active' : 'icon2 heart'}">
 
 				<img th:src="${#lists.contains(likeList, vo.destName) ?
                      'https://cdn-icons-png.flaticon.com/512/803/803087.png' :
@@ -50,7 +50,6 @@
 					 th:alt="${#lists.contains(likeList, vo.destName) ?
                      '찜하기 완료' : '찜하기'}">
 			</a>
-
 		</div>
 
 	</div>
