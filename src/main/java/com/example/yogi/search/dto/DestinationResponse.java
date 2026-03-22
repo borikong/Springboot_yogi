@@ -28,7 +28,7 @@ public class DestinationResponse {
     private LocalDateTime insDate;
     private LocalDateTime updDate;
 
-    private List<String> likelist;
+//    private List<String> likelist;
     private double destTotal;               //가중치를 곱한 여행지 점수
     private String destSummary;             //DEST_CONTENT를 190자까지 잘라냄
     private String money;                   //선택한 우선순위

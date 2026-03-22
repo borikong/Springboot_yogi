@@ -80,4 +80,13 @@ public class DestinationServiceImpl implements DestinationService {
         return weight * (1 / (float) attnum);
     }
 
+    @Override
+    public void insertLike(String loginId,String destId) {
+
+    }
+
+    @Override
+    public void deleteLike(String loginId,String destId) {
+
+    }
 }

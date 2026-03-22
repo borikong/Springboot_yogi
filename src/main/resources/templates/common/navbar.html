@@ -8,16 +8,19 @@
 
 <div class="nav_menu">
     <ul>
-        <li th:if="${loginId == null}">
-            <a th:href="@{/login}">로그인</a>
+        <li th:if="${session.loginId == null}">
+<!--            <a th:href="@{/login}">로그인</a>-->
+<!--            테스트용 start -->
+            <a href="#" onclick="document.getElementById('loginTestForm').submit()">로그인</a>
+            <!--            테스트용 end -->
         </li>
-        <li th:if="${loginId == null}">
+        <li th:if="${session.loginId == null}">
             <a th:href="@{/newMember}">회원가입</a>
         </li>
 
-        <li th:if="${loginId !=null}">${loginID}님 어서오세요</li>
-        <li th:if="${loginId !=null}"><a th:href="@{/mypage}">마이페이지</a></li>
-        <li th:if="${loginId !=null}"><a href="@{/logout}">로그아웃</a></li>
+        <li th:if="${session.loginId !=null}"><span th:text="${session.loginId}">님 어서오세요</span></li>
+        <li th:if="${session.loginId !=null}"><a th:href="@{/mypage}">마이페이지</a></li>
+        <li th:if="${session.loginId !=null}"><a href="@{/logout}">로그아웃</a></li>
 
     </ul>
 </div>
@@ -47,4 +50,7 @@
         <i class="bi bi-list"></i>
     </a>
 </nav>
-
+<!--            테스트용 start -->
+<form th:action="@{/logintest}" method="post" id="loginTestForm">
+</form>
+<!--            테스트용 end -->
