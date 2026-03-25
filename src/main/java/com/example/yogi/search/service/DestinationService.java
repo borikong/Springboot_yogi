@@ -10,5 +10,6 @@ public interface DestinationService {
     List<DestinationResponse> searchDestByPriority(DestinationRequest request);
     void insertLike(String loginId,String destId);
     void deleteLike(String loginId,String destId);
+    public List<Long> findUserLikeById(String id);
 
 }

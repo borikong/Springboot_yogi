@@ -40,10 +40,10 @@
 			<a href="javascript:void(0);"
 			   th:data-a="${vo.destId}"
 			   th:data-b="${#lists.contains(likeList, vo.destId) ? 'active' : 'nonactive'}"
-			   th:data-c="${loginID}"
+			   th:data-c="${session.loginID}"
 			   th:class="${#lists.contains(likeList, vo.destId) ? 'icon2 heart active' : 'icon2 heart'}">
 
-				<img th:src="${#lists.contains(likeList, vo.destName) ?
+				<img th:src="${#lists.contains(likeList, vo.destId) ?
                      'https://cdn-icons-png.flaticon.com/512/803/803087.png' :
                      'https://cdn-icons-png.flaticon.com/512/812/812327.png'}"
 
