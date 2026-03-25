@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -26,7 +27,7 @@ public class SearchDestController {
                         HttpSession session){
         model.addAttribute("request",request);
 
-        setLikeList(model,(String)session.getAttribute("loginId"));
+        setLikeList(model,(String)session.getAttribute("loginID"));
 
         if(ACTION_PRIORITY.equals(action)){
             //우선순위 검색

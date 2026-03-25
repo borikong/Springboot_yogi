@@ -8,6 +8,7 @@ function submit() {
 function handleLikeClick(selector) {
 
 	$(selector).click(function () {
+		const $this = $(this);
 		const data = $(this).data();
 
 		// 로그인 체크

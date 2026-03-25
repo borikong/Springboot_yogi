@@ -20,6 +20,7 @@ public class Member {
     private String zipcode;
     private String address1;
     private String address2;
+    @Setter
     private String userlike;
 
 }

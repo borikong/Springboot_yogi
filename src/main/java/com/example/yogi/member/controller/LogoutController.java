@@ -7,12 +7,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 @AllArgsConstructor
-public class LoginController {
-
-    @PostMapping("/logintest")
+public class LogoutController {
+    @PostMapping("/logout")
     public String LoginTest(HttpSession session){
-        session.setAttribute("loginID","testId");
+        session.removeAttribute("loginID");
         return "home";
     }
-
 }
