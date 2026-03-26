@@ -120,8 +120,8 @@ public class DestinationServiceImpl implements DestinationService {
         memberRepository.save(mem);
     }
 
-    @Override
-    public List<Long> findUserLikeById(String id){
+    //사용자 관심 여행지 리스트 취득
+    private List<Long> findUserLikeById(String id){
         List<Long> userLikeList = memberRepository.findById(id)
                 .map(member -> Arrays.stream(member.getUserlike().split(",")))
                 .orElseGet(Stream::empty)
