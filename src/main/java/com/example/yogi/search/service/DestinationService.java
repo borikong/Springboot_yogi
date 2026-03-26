@@ -6,10 +6,13 @@ import java.util.List;
 
 public interface DestinationService {
 
+    //키워드로 여행지 검색
     List<DestinationResponse> searchDestByKeyword(DestinationRequest request);
+    //우선순위로 여행지 검색
     List<DestinationResponse> searchDestByPriority(DestinationRequest request);
+    // 좋아요 처리
     void insertLike(String loginId,String destId);
+    // 좋아요 취소 처리
     void deleteLike(String loginId,String destId);
-    public List<Long> findUserLikeById(String id);
 
 }

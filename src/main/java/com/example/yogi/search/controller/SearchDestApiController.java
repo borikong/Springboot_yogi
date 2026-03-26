@@ -19,11 +19,13 @@ public class SearchDestApiController {
 
     private final DestinationService destinationService;
 
+    //검색
     @GetMapping("/searchdest/destinations")
     public List<DestinationResponse> Search(DestinationRequest request){
         return destinationService.searchDestByKeyword(request);
     }
 
+    //좋아요(하트 클릭시 insert delete 처리)
     @PostMapping("/searchdest/like")
     public Map<String, Object> like(@RequestParam String cmd,
                                     @RequestParam String destId,

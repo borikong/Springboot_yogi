@@ -33,7 +33,7 @@
             th:alt="${detail.isLiked} ?'찜하기 완료':'찜하기'">&nbsp;&nbsp;
         </a>
       </div>
-        <input type="button" class="listbtn" value="목록으로" th:onclick="|history.back()|">
+        <input type="button" class="listbtn" value="목록으로" th:onclick="'location.href=\'/searchdest\''">
     </div>
     <div id="detail-view">
       <table>
