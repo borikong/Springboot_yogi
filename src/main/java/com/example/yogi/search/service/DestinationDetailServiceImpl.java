@@ -18,14 +18,14 @@ public class DestinationDetailServiceImpl implements DestinationDetailService{
     private final MemberRepository memberRepository;
 
     @Override
-    public DestDetailResponse getDestDetail(String id, DestDetailRequest request) {
+    public DestDetailResponse getDestDetail(DestDetailRequest request) {
         DestDetailResponse response=destinationRepository.findById(request.getDestId())
                 .map(DestDetailResponse::new).orElseThrow(()->new RuntimeException("Destination Not Found"));
-        response.setLiked(isLike(id,request.getDestId()));
         return response;
     }
     //여행지가 좋아요 표시한 여행지인지 여부
-    private boolean isLike(String id, String destId){
+    @Override
+    public boolean isLike(String id, String destId){
         List<Long> userLikeList = memberRepository.findById(id)
                 .map(member -> Arrays.stream(member.getUserlike().split(",")))
                 .orElseGet(Stream::empty)

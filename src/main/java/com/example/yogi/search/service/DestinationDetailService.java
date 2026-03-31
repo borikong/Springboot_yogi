@@ -8,5 +8,6 @@ import java.util.List;
 public interface DestinationDetailService {
 
     //여행지 상세정보 취득
-    DestDetailResponse getDestDetail(String id,DestDetailRequest request);
+    DestDetailResponse getDestDetail(DestDetailRequest request);
+    boolean isLike(String id, String destId);
 }
