@@ -3,6 +3,7 @@ package com.example.yogi.search.service;
 import com.example.yogi.member.repository.MemberRepository;
 import com.example.yogi.search.dto.DestDetailRequest;
 import com.example.yogi.search.dto.DestDetailResponse;
+import com.example.yogi.search.entity.Destination;
 import com.example.yogi.search.repository.DestinationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,10 +19,10 @@ public class DestinationDetailServiceImpl implements DestinationDetailService{
     private final MemberRepository memberRepository;
 
     @Override
-    public DestDetailResponse getDestDetail(DestDetailRequest request) {
-        DestDetailResponse response=destinationRepository.findById(request.getDestId())
-                .map(DestDetailResponse::new).orElseThrow(()->new RuntimeException("Destination Not Found"));
-        return response;
+    public Destination getDestDetail(DestDetailRequest request) {
+        Destination destination=destinationRepository.findById(request.getDestId()).orElseThrow();
+
+        return destination;
     }
     //여행지가 좋아요 표시한 여행지인지 여부
     @Override

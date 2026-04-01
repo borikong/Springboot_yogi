@@ -2,6 +2,8 @@ package com.example.yogi.search.controller;
 
 import com.example.yogi.member.service.MemberService;
 import com.example.yogi.search.dto.DestinationRequest;
+import com.example.yogi.search.dto.DestinationResponse;
+import com.example.yogi.search.entity.Destination;
 import com.example.yogi.search.service.DestinationService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -27,18 +29,21 @@ public class SearchDestController {
                         HttpSession session){
         model.addAttribute("request",request);
 
+        //관심 여행지 목록 취득
         setLikeList(model,(String)session.getAttribute("loginID"));
+
+        List<Destination> destList;
 
         if(ACTION_PRIORITY.equals(action)){
             //우선순위 검색
-            //일반 검색
-            model.addAttribute("destlist", destinationService.searchDestByPriority(request));
-            model.addAttribute("request",request);
+            destList=destinationService.searchDestByPriority(request);
         }else{
             //일반 검색
-            model.addAttribute("destlist", destinationService.searchDestByKeyword(request));
-            model.addAttribute("request",request);
+            destList=destinationService.searchDestByKeyword(request);
         }
+
+        model.addAttribute("destlist",destList.stream().map(DestinationResponse::new).toList());
+        model.addAttribute("request",request);
 
         return "searchdest/searchdest";
     }

@@ -23,6 +23,7 @@ function writeSave(){
 		document.writeForm.content.focus();
 		return false;
 	}
+	return true;
 }
 
 function updateSave(){
@@ -52,6 +53,7 @@ function deleteSave(){
 		document.delForm.pass.focus;
 	return false;
 	}
+	return true;
 }
 
 function com_check(){
@@ -60,4 +62,13 @@ function com_check(){
 		document.check.c_content.focus;
 	return flase;
 	}
+}
+
+function checkPassword(boardNo, pass) {
+	var xhr = new XMLHttpRequest();
+	xhr.open("POST", "/checkPassword", false);
+	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	xhr.send("boardNo=" + boardNo + "&pass=" + encodeURIComponent(pass));
+
+	return JSON.parse(xhr.responseText);
 }

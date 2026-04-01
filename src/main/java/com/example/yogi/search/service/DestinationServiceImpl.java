@@ -23,7 +23,7 @@ public class DestinationServiceImpl implements DestinationService {
 
     //키워드로 검색 :: 관광지명/나라
     @Override
-    public List<DestinationResponse> searchDestByKeyword(DestinationRequest request) {
+    public List<Destination> searchDestByKeyword(DestinationRequest request) {
 
         List<Destination> destList;
 
@@ -37,14 +37,14 @@ public class DestinationServiceImpl implements DestinationService {
             destList=destinationRepository.findAll();
         }
 
-        return destList.stream().map(DestinationResponse::new).toList();
+        return destList;
     }
 
     //우선순위로 검색
     @Override
-    public List<DestinationResponse> searchDestByPriority(DestinationRequest request) {
+    public List<Destination> searchDestByPriority(DestinationRequest request) {
         List<Destination> destList=destinationRepository.findAll();
-        List<DestinationResponse> responsesList = new ArrayList<>();
+        List<Destination> responsesList = new ArrayList<>();
         int attribute_num = 3; // 속성 개수
 
         //우선순위 가져오기
@@ -65,7 +65,7 @@ public class DestinationServiceImpl implements DestinationService {
             double origin_fun = destList.get(i).getDestFun();
             double total = (origin_money) * money_weight + origin_land * land_weight + origin_fun * fun_weight;
 
-            DestinationResponse dest =new DestinationResponse(destList.get(i));
+            Destination dest =destList.get(i);
             dest.setDestTotal(total);
             responsesList.add(dest);
         }

@@ -55,4 +55,8 @@ public class Destination {
 
     @Column(name = "UPD_DATE")
     private LocalDateTime updDate;
+
+    @Setter
+    @Transient
+    private double destTotal;               //가중치를 곱한 여행지 점수
 }

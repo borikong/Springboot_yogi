@@ -2,6 +2,7 @@ package com.example.yogi.search.controller;
 
 import com.example.yogi.search.dto.DestinationRequest;
 import com.example.yogi.search.dto.DestinationResponse;
+import com.example.yogi.search.entity.Destination;
 import com.example.yogi.search.service.DestinationService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -19,9 +20,9 @@ public class SearchDestApiController {
 
     private final DestinationService destinationService;
 
-    //검색
+    //여행지 검색
     @GetMapping("/searchdest/destinations")
-    public List<DestinationResponse> Search(DestinationRequest request){
+    public List<Destination> Search(DestinationRequest request){
         return destinationService.searchDestByKeyword(request);
     }
 

@@ -1,0 +1,6 @@
+2026-04-01 00:22:53.379550+09:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "update BOARD set title = [*]‘test’ where no = 4"; SQL statement:
+update BOARD set title = ‘test’ where no = 4 [42000-224]
+2026-04-01 00:23:18.777947+09:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "update BOARD set TITLE= [*]‘test’ where NO= 4"; SQL statement:
+update BOARD set TITLE= ‘test’ where NO= 4 [42000-224]

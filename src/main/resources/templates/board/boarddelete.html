@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>여행은 요기조기-삭제</title>
+	<script type="text/javascript" th:src="@{/js/board/board.js}"></script>
+	<link rel="stylesheet" th:href="@{/css/board/board.css}">
+</head>
+<script>
+	function handleCheck() {
+		if(!deleteSave()){
+			return false;
+		}
+		const boardNo = document.delForm.no.value;
+		const pass = document.delForm.pass.value;
+		const isValid = checkPassword(boardNo, pass);
+
+		if (isValid) {
+			const confirmDelete = confirm("삭제하시겠습니까?");
+
+			if (confirmDelete) {
+				location.href = `/board/delete/proc?boardNo=${boardNo}`;
+			} else {
+				return false;
+			}
+		} else {
+			alert("비밀번호가 틀렸습니다!");
+			return false;
+		}
+	}
+</script>
+<body>
+<div th:replace="/common/navbar"></div>
+<div class="board_wrap" style="position: relative; z-index: 1;">
+		<div class="board_title">
+			<strong>게시물 삭제</strong>
+			<p>설정하신 비밀번호를 입력하셔서 삭제를 진행해주세요.</p>
+		</div>
+		<form th:action="@{/board/delete/proc}" method="post" name="delForm" onsubmit="return handleCheck()">
+		
+		<div class="board_write_wrap">	<!-- 타이틀 아래 영역(리스트, 페이지, 버튼) -->
+			<div class="board_write">	<!-- 문의게시판 전체 영역 -->
+				<div class="title">
+					<dl>
+						<dt>비밀번호 : </dt>
+						<dd>
+							<input type="password" placeholder="비밀번호 입력" name="pass">
+							<input type="hidden" name="no" th:value="${board.no}">
+						</dd>
+					</dl>
+				</div>
+			</div>
+			<div class="bt_wrap">		<!-- 버튼 영역 -->
+				<input type="submit" value="삭제" class="on">
+				<input type="button" value="취소" th:onclick="|location.href='@{/board/detail(no=${board.no})}'|">
+			</div>
+		</div>
+		</form>
+</div>
+<div th:replace="/common/footer"></div>
+	
+</body>
+</html>

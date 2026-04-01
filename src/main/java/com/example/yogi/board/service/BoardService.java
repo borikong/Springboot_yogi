@@ -1,5 +1,6 @@
 package com.example.yogi.board.service;
 
+import com.example.yogi.board.dto.BoardRequest;
 import com.example.yogi.board.entity.Board;
 
 import java.util.List;
@@ -14,4 +15,8 @@ public interface BoardService {
     //조회수 업데이트
     void addCount(int boardNo);
 
+    //게시글 작성
+    int write(BoardRequest request);
+
+    void delete(int boardNo);
 }

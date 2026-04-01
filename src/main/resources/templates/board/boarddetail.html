@@ -1,29 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>여행은 요기조기-내용</title>
-	<link rel="stylesheet" th:href="@{/css/board/board.css}">
-	<script type="text/javascript" th:src="@{/js/board/board.js}"></script>
-
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
-<link
-	href="https://fonts.googleapis.com/css2?family=Jua&family=Kiwi+Maru&display=swap"
-	rel="stylesheet">
-<link
-	href="https://fonts.googleapis.com/css2?family=Kiwi+Maru&display=swap"
-	rel="stylesheet">
-<script src="https://kit.fontawesome.com/3e7bdacc74.js"
-	crossorigin="anonymous"></script>
+	<title>여행은 요기조기-내용</title>
+	<th:block th:replace="board/common :: commonHead"></th:block>
 </head>
 <body>
 <div th:replace="/common/navbar"></div>
 	<!-- 본문 -->
 	<div class="board_wrap" style="position: relative; z-index: 1;">
-		<!-- 전체를 감싸고 있는 div 생성 -->
 		<div class="board_title">
-			<!-- 보드의 타이틀(ex. 공지사항) -->
 			<strong>자유게시판</strong>
 			<p>자유롭게 이용가능한 게시판입니다.</p>
 		</div>
@@ -52,10 +37,8 @@
 					</dl>
 					<dl>
 						<dd>
-							<form th:action="@{/board/delete}" method="post">
 								<input type="hidden" name="no" th:value="${board.no}">
-								<input type="image" th:src="@{/pic/board/trash.png}" width="15" alt="삭제">
-							</form>
+								<input type="image" th:src="@{/pic/board/trash.png}" width="15" alt="삭제" th:onclick="|location.href='@{/board/delete(no=${board.no})}'|">
 						</dd>
 					</dl>
 				</div>
@@ -127,11 +110,8 @@
 
 			<!-- 버튼 영역 -->
 			<div class="bt_wrap">
-				<input type="button" class="on" value="목록"
-					   th:onclick="|location.href='@{/boardlist}'|">
-
-				<input type="button" value="수정"
-					   th:onclick="|location.href='@{/board/edit(no=${board.no})}'|">
+				<input type="button" class="on" value="목록" th:onclick="|location.href='@{/boardlist}'|">
+				<input type="button" value="수정" th:onclick="|location.href='@{/board/edit(no=${board.no})}'|">
 			</div>
 		</div>
 	</div>

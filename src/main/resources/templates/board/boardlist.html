@@ -1,16 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
     <title>여행은 요기조기-자유게시판</title>
-    <link rel="stylesheet" href="Board.css">
-
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
-    <link href="https://fonts.googleapis.com/css2?family=Jua&family=Kiwi+Maru&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Kiwi+Maru&display=swap" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/3e7bdacc74.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" th:href="@{/css/board/board.css}">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/Sim/Free_Board/Board.css">
+    <th:block th:replace="board/common :: commonHead"></th:block>
 </head>
 <script>
 
@@ -46,7 +38,7 @@
                         </a>
                     </div>
                     <div class="writer" th:text="${bo.writer}"></div>
-                    <div class="date" th:text="${#dates.format(bo.regdate, 'yyyy-MM-dd HH:mm')}"></div>
+                    <div class="date" th:text="${#dates.format(bo.regdate, 'yyyy-MM-dd')}"></div>
                     <div class="count" th:text="${bo.readcount}"></div>
                 </div>
             </div>
