@@ -9,22 +9,34 @@
 		if(!writeSave()){
 			return false;
 		}
-		const boardNo = document.writeForm.no.value;
-		const pass = document.writeForm.pass.value;
-		const isValid = checkPassword(boardNo, pass);
-
-		if (isValid) {
-			const confirmDelete = confirm("수정하시겠습니까?");
-
+		const mode = document.writeForm.mode.value;
+		if(mode!='EDIT'){
+			const confirmDelete = confirm("등록하시겠습니까?");
 			if (confirmDelete) {
-				location.href = `/board/delete?boardNo=${boardNo}`;
+				return true;
 			} else {
 				return false;
 			}
-		} else {
-			alert("비밀번호가 틀렸습니다!");
-			return false;
+		}else{
+			const boardNo = document.writeForm.no.value;
+			const pass = document.writeForm.pass.value;
+			const isValid = checkPassword(boardNo, pass);
+
+			if (isValid) {
+				const confirmDelete = confirm("수정하시겠습니까?");
+
+				if (confirmDelete) {
+					location.href = `/board/delete?boardNo=${boardNo}`;
+				} else {
+					return false;
+				}
+			} else {
+				alert("비밀번호가 틀렸습니다!");
+				return false;
+			}
 		}
+
+
 	}
 </script>
 <body>
@@ -37,7 +49,6 @@
 			<p>자유롭게 이용가능한 게시판입니다.</p>
 		</div>
 		<form th:action="@{/board/write}" method="post" name="writeForm" onsubmit="return handleCheck()">
-			<input type="hidden" name="no" th:value="${mode=='EDIT'}?${board.no}:''">
 			<div class="board_write_wrap">
 				<!-- 타이틀 아래 영역(리스트, 페이지, 버튼) -->
 				<div class="board_write">
@@ -74,13 +85,15 @@
 					</div>
 				</div>
 				<div th:if="${mode!='EDIT'}" class="bt_wrap">
-					<!-- 버튼 영역 -->
+					<!-- 등록 -->
+					<input type="hidden" name="mode" th:value="NEW">
 					<input type="submit" value="등록" class="on">
 					<input type="button" value="취소" th:onclick="|location.href='@{/boardlist}'|">
 				</div>
 				<div th:if="${mode=='EDIT'}" class="bt_wrap">
 					<input type="hidden" name="mode" th:value="EDIT">
-					<!-- 버튼 영역 -->
+					<input type="hidden" name="no" th:value="${mode=='EDIT'}?${board.no}:''">
+					<!-- 수정 -->
 					<input type="submit" value="수정" class="on">
 					<input type="button" value="취소" th:onclick="|location.href='@{/board/detail(no=${board.no})}'|">
 				</div>
