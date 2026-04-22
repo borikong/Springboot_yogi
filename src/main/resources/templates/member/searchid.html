@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>아이디 찾기</title>
+	<link rel="stylesheet" th:href="@{/css/mem/ect_style.css}">
+	<script th:src="@{/js/mem/mem.js}"></script>
+</head>
+
+<div style="margin-left: 30px;">
+
+	<form action="/searchIdProc" name="idproc" method="get">
+		<div class="search-header">
+			<h2>아이디 찾기</h2>
+		</div>
+
+		<div class="r-border"></div>
+
+		<div class="searchDivForm">
+
+			<div>
+				<input type="text" name="name" value="" placeholder="이름을 입력해주세요">
+			</div>
+
+			<div>
+				<input type="text" name="email" value="" placeholder="이메일을 입력해주세요">
+			</div>
+
+			<div>
+				<input class="bt3" type="submit" value="ID찾기"
+					onclick="return searchId();">
+				<input class="bt3"
+					type="button" value="취소"
+					onclick="window.close();">
+			</div>
+
+		</div>
+
+	</form>
+</div>
+</body>
+</html>

@@ -9,9 +9,9 @@
 <div class="nav_menu">
     <ul>
         <li th:if="${session.loginID == null}">
-<!--            <a th:href="@{/login}">로그인</a>-->
+            <a th:href="@{/login}">로그인</a>
 <!--            테스트용 start -->
-            <a href="#" onclick="document.getElementById('loginTestForm').submit()">로그인</a>
+<!--            <a href="#" onclick="document.getElementById('loginTestForm').submit()">로그인</a>-->
             <!--            테스트용 end -->
         </li>
         <li th:if="${session.loginID == null}">

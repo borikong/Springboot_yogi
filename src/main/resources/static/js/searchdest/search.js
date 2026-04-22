@@ -44,13 +44,6 @@ function handleLikeClick(selector) {
 				alert('처리 실패');
 			}
 		})
-		// $(this).data("b", isActive ? "nonactive" : "active");
-		//
-		// // URL 생성
-		// let url = `Like.de?cmd=${isActive ? 'dislike' : 'like'}&dest=${data.a}`;
-		//
-		// // 이동
-		// location.href = url;
 	});
 }
 

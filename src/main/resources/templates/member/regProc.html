@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>회원 가입 확인</title>
+<style>
+.join_bt1 {
+	height: 30px;
+    border-radius: 3px;
+    text-align: center;
+    overflow: hidden;
+    width: 80px;
+    color: rgb(255, 255, 255);
+    background-color: #2EA26B;
+    border: 1px solid #2EA26B;
+}
+
+.join_bt2 {
+	height: 30px;
+    border-radius: 3px;
+    text-align: center;
+    overflow: hidden;
+    width: 80px;
+    color: rgb(255, 255, 255);
+    background-color: #2EA26B;
+    border: 1px solid #2EA26B;
+}
+a:hover {
+	cursor: pointer;
+}
+</style>
+</head>
+<body>
+
+<br>
+<div align="center">
+	<div th:replace="/common/navbar"></div>
+<br><br><br><br><br><br>
+	<span th:if="${flag}">
+		<b>회원가입이 완료되었습니다.</b><br><br>
+		<a th:href="@{/login}">
+			<input class="join_bt1" value="로그인">
+		</a>
+	</span>
+
+	<span th:if="!${flag}">
+		<b>회원가입 실패</b><br><br>
+		<a th:href="@{/newMember}">
+			<input class="join_bt2" value="다시 입력" style="cursor: pointer;">
+		</a>
+	</span>
+
+</div>
+<br><br><br><br><br><br>
+<div th:replace="/common/footer"></div>
+</body>
+</html>

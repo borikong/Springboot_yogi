@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Login</title>
+	<link rel="stylesheet" th:href="@{/css/mem/ect_style.css}">
+	<script th:src="@{/js/mem/mem.js}"></script>
+</head>
+<script>
+	function loginCheck(){
+		if(document.loginForm.id.value==""){
+			alert('아이디를 입력해주세요.');
+			return false;
+		}else if(document.loginForm.pass.value==""){
+			alert('비밀번호를 입력해주세요.');
+			return false;
+		}
+	}
+
+</script>
+<body>
+<div th:replace="/common/navbar"></div>
+
+		<th:block th:if="${check == 0}">
+			<script>
+				alert('비밀번호가 틀렸습니다.');
+			</script>
+		</th:block>
+
+		<th:block th:if="${check == -1}">
+			<script>
+				alert('아이디가 존재하지 않습니다.');
+			</script>
+		</th:block>
+
+		<form action="/loginProc" method="post" name="loginForm" onsubmit="return loginCheck()">
+			<div>
+				<div class="loginDiv">로그인</div>
+				<div class="loginDivForm">
+
+					<div>
+						<input type="text" name="id" value="" placeholder="아이디를 입력해주세요">
+					</div>
+
+					<div>
+						<input type="password" name="pass" value=""
+							placeholder="비밀번호를 입력해주세요">
+					</div>
+
+					<div class="idpw">
+						<a class="searchdeco" href="" onclick="searchIdPrompt();">아이디
+							찾기</a> <span class="spanBorder">|</span> <a class="searchdeco"
+							href="" onclick="searchPwPrompt();">비밀번호 찾기</a>
+					</div>
+
+					<div>
+						<input class="bt1" type="submit" value="로그인">
+					</div>
+
+					<div>
+						<input class="bt2" type="button" value="회원가입"
+							onclick="javascript:window.location='/newMember'">
+					</div>
+
+				</div>
+			</div>
+		</form>
+
+<div th:replace="/common/footer"></div>
+</body>
+</html>

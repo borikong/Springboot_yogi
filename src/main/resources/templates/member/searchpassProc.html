@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>비밀번호 확인</title>
+  <link rel="stylesheet" th:href="@{/css/mem/ect_style.css}">
+  <script th:src="@{/js/mem/mem.js}"></script>
+
+</head>
+<body>
+
+<div class="idproc-size">
+  <div th:if="${#strings.isEmpty(pass)}">
+    비밀번호를 찾을 수 없습니다.
+  </div>
+  <div th:if="${!#strings.isEmpty(pass)}">
+    <p>입력하신 정보로 아래의 비밀번호를 찾았습니다.</p>
+    <span th:if="${pass != null and pass != ''}">
+        <span th:text="${pass}"></span>
+    </span>
+  </div>
+<table>
+<tr>
+  <td>
+    <input class="bt4" type="button" value="확인" onclick="javascript:window.close();">
+  </td>
+  <td>
+    <a th:href="@{/searchPass}" style="text-decoration: none;"><input class="bt4" type="button" value="다시 찾기"></a>
+  </td>
+</tr>
+</table>
+
+</div>
+</body>
+</html>

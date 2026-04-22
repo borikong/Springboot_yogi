@@ -30,6 +30,10 @@ public class Board {
     @Column(columnDefinition = "TEXT")
     private String content;			    // 본문
 
+    @Transient
+    @Setter
+    private int tempNo;                 // 게시판 표시 번호
+
     public static Board create(BoardRequest request) {
         Board board = new Board();
         board.title = request.getTitle();

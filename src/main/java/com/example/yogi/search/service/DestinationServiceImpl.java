@@ -2,6 +2,7 @@ package com.example.yogi.search.service;
 
 import com.example.yogi.member.entity.Member;
 import com.example.yogi.member.repository.MemberRepository;
+import com.example.yogi.search.dto.DestDetailRequest;
 import com.example.yogi.search.dto.DestinationRequest;
 import com.example.yogi.search.dto.DestinationResponse;
 import com.example.yogi.search.entity.Destination;
@@ -19,7 +20,6 @@ import java.util.stream.Stream;
 @RequiredArgsConstructor
 public class DestinationServiceImpl implements DestinationService {
     private final DestinationRepository destinationRepository;
-    private final MemberRepository memberRepository;
 
     //키워드로 검색 :: 관광지명/나라
     @Override
@@ -87,47 +87,20 @@ public class DestinationServiceImpl implements DestinationService {
     }
 
     @Override
-    public void insertLike(String loginId,String destId) {
-        List<Long> userlikeList = new ArrayList<>(this.findUserLikeById(loginId));
-        userlikeList.add(Long.parseLong(destId));
+    public List<Destination> searchDestListByNo(List<Long> idlist) {
+        List<Destination> destList=new ArrayList<>();
 
-        List<Long> uniqueList = new ArrayList<>(new HashSet<>(userlikeList));
-        String userlike = "";
-        for (long id : uniqueList){
-            userlike+=id+",";
+        for (long id:idlist){
+            Destination dest=destinationRepository.findById(String.valueOf(id)).orElseThrow();
+            destList.add(dest);
         }
-
-        Member mem = memberRepository.findById(loginId).orElseThrow();
-
-        mem.setUserlike(userlike);
-        memberRepository.save(mem);
+        return destList;
     }
 
     @Override
-    public void deleteLike(String loginId,String destId) {
-        List<Long> userlikeList = new ArrayList<>(this.findUserLikeById(loginId));
+    public Destination getDestDetail(DestDetailRequest request) {
+        Destination destination=destinationRepository.findById(request.getDestId()).orElseThrow();
 
-        userlikeList.remove(Long.valueOf(destId));
-
-        List<Long> uniqueList = new ArrayList<>(new HashSet<>(userlikeList));
-        String userlike = "";
-        for (long id : uniqueList){
-            userlike+=id+",";
-        }
-
-        Member mem = memberRepository.findById(loginId).orElseThrow();
-        mem.setUserlike(userlike);
-        memberRepository.save(mem);
-    }
-
-    //사용자 관심 여행지 리스트 취득
-    private List<Long> findUserLikeById(String id){
-        List<Long> userLikeList = memberRepository.findById(id)
-                .map(member -> Arrays.stream(member.getUserlike().split(",")))
-                .orElseGet(Stream::empty)
-                .map(String::trim)
-                .map(Long::parseLong)
-                .toList();
-        return userLikeList;
+        return destination;
     }
 }

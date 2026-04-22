@@ -1,7 +1,7 @@
 package com.example.yogi.search.controller;
 
+import com.example.yogi.member.service.MemberService;
 import com.example.yogi.search.dto.DestinationRequest;
-import com.example.yogi.search.dto.DestinationResponse;
 import com.example.yogi.search.entity.Destination;
 import com.example.yogi.search.service.DestinationService;
 import jakarta.servlet.http.HttpSession;
@@ -16,9 +16,10 @@ import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
-public class SearchDestApiController {
+public class DestinationApiController {
 
     private final DestinationService destinationService;
+    private final MemberService memberService;
 
     //여행지 검색
     @GetMapping("/searchdest/destinations")
@@ -39,9 +40,9 @@ public class SearchDestApiController {
         }
 
         if (cmd.equals("like")) {
-            destinationService.insertLike(loginID, destId);
+            memberService.insertLike(loginID, destId);
         } else {
-            destinationService.deleteLike(loginID, destId);
+            memberService.deleteLike(loginID, destId);
         }
 
         return Map.of("success", true);

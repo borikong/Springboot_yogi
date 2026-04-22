@@ -50,4 +50,13 @@ public class DestDetailResponse {
             this.destSummary=this.destContent.substring(0,190);
         }else this.destSummary=this.destContent;
     }
+
+    public String getDestTagStr() {
+        String[] taglist=this.destTag.split(",");
+        String str="";
+        for(String tag : taglist){
+            str+="#"+tag.replace(" ","")+" ";
+        }
+        return str;
+    }
 }
