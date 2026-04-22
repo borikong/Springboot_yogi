@@ -95,10 +95,6 @@ function checkclose_email_modify() { //이메일 중복확인 창 닫기, 이메
 	window.close();
 }
 
-
-
-
-
 ////id 중복확인
 //function idCheck(id, email) {
 //	if (id == "") {
@@ -115,7 +111,7 @@ function idCheck(id) {
         return;
     }
 
-    fetch(`/check-id?id=${encodeURIComponent(id)}`)
+    fetch(`/member/check-id?id=${encodeURIComponent(id)}`)
         .then(response => response.json())
         .then(data => {
             const msgBox = document.getElementById("idCheckMsg");
@@ -141,7 +137,7 @@ function emailCheck(email) {
         return;
     }
 
-    fetch(`/check-email?email=${encodeURIComponent(email)}`)
+    fetch(`/member/check-email?email=${encodeURIComponent(email)}`)
         .then(response => response.json())
         .then(data => {
             const msgBox = document.getElementById("emailCheckMsg");

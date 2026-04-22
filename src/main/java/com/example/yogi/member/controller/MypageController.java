@@ -10,7 +10,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,11 +22,9 @@ public class MypageController {
     private final DestinationService destinationService;
 
     //마이페이지 화면으로
-    @GetMapping({"/mypage"})
+    @GetMapping({"/member/mypage"})
     public String index(Model model, HttpSession session, MemberRequest request){
-        if(null==session.getAttribute("loginID")){
-            return "member/login";
-        }
+
         //관심 여행지 목록 취득
         setLikeList(model,(String)session.getAttribute("loginID"));
 
@@ -34,29 +32,23 @@ public class MypageController {
     }
 
     //정보수정 화면으로
-    @GetMapping({"/modify"})
-    public String modify(Model model, HttpSession session, MemberRequest request){
-        if(null==session.getAttribute("loginID")){
-            return "member/login";
-        }
+    @GetMapping({"/member/modify"})
+    public String modify(Model model,MemberRequest request){
 
         return "member/modify";
     }
 
     //회원탈퇴 화면으로
-    @GetMapping({"/delete"})
-    public String delete(Model model, HttpSession session){
-        if(null==session.getAttribute("loginID")){
-            return "member/login";
-        }
+    @GetMapping({"/member/delete"})
+    public String delete(Model model){
 
         return "member/delete";
     }
 
     //찜삭제
-    @GetMapping({"/mypage/deletelike"})
-    public String deleteLike(){
-
+    @GetMapping({"/member/deletelike"})
+    public String deleteLike(HttpSession session,@RequestParam String destId){
+        memberService.deleteLike(session.getAttribute("loginID").toString(),destId);
         return "member/mypage";
     }
 

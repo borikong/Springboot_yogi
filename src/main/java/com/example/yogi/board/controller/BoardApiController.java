@@ -13,7 +13,7 @@ public class BoardApiController {
     private final BoardService boardService;
 
     //비밀번호 확인
-    @PostMapping("/checkPassword")
+    @PostMapping("/board/checkPassword")
     public boolean checkPassword(@RequestParam int boardNo, @RequestParam String pass){
         return boardService.getBoardDetail(boardNo).getPass().equals(pass);
     }

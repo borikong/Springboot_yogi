@@ -19,7 +19,7 @@
         </li>
 
         <li th:if="${session.loginID !=null}"><span th:text="${session.loginID}">님 어서오세요</span></li>
-        <li th:if="${session.loginID !=null}"><a th:href="@{/mypage}">마이페이지</a></li>
+        <li th:if="${session.loginID !=null}"><a th:href="@{/member/mypage}">마이페이지</a></li>
         <li th:if="${session.loginID !=null}"><a href="#" onclick="document.getElementById('logoutForm').submit()">로그아웃</a></li>
 
     </ul>
@@ -37,7 +37,7 @@
     <ul class="navbar_menu">
         <!-- 메뉴 -->
         <li><a th:href="@{/searchdest}">여행지탐색</a></li>
-        <li><a th:href="@{/boardlist}">요기커뮤니티</a></li>
+        <li><a th:href="@{/board/boardlist}">요기커뮤니티</a></li>
         <li><a th:href="@{/service}">고객센터</a>
             <ul class="drop_menu3">
                 <li><a class="nav_a" th:href="@{/notice}">공지사항</a></li>

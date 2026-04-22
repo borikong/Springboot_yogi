@@ -24,13 +24,13 @@
 				<div class="left-header">마이페이지</div>
 				<ul class="mypageul">
 					<li>
-						<a class="active mp-a" th:href="@{/mypage}"> 찜리스트 <span class="mp_span">&gt;</span></a>
+						<a class="active mp-a" th:href="@{/member/mypage}"> 찜리스트 <span class="mp_span">&gt;</span></a>
 					</li>
 					<li>
-						<a class="mp-a" th:href="@{/modify}"> 정보수정 <span class="mp_span">&gt;</span></a>
+						<a class="mp-a" th:href="@{/member/modify}"> 정보수정 <span class="mp_span">&gt;</span></a>
 					</li>
 					<li>
-						<a class="mp-a" th:href="@{/delete}"> 회원탈퇴<span class="mp_span">&gt;</span></a>
+						<a class="mp-a" th:href="@{/member/delete}"> 회원탈퇴<span class="mp_span">&gt;</span></a>
 					</li>
 				</ul>
 
@@ -89,7 +89,7 @@
 							<!-- 찜삭제 -->
 							<div class="box-wish">
 								<button class="wish-btn" type="button" height="36" radius="3">
-									<a href="@{/mypage/deletelike}">찜 삭제</a>
+									<a href="@{/member/deletelike?destId=${vo.destId}">찜 삭제</a>
 								</button>
 							</div>
 						</div>

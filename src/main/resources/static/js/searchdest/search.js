@@ -21,7 +21,7 @@ function handleLikeClick(selector) {
 		const isActive = data.b === 'active';
 		const cmd = isActive?'dislike':'like'; //액티브하트->좋아요 취소
 		$.ajax({
-			url:'/searchdest/like',
+			url:'/member/like',
 			type:'POST',
 			data:{
 				cmd:cmd,

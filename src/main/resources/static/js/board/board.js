@@ -66,7 +66,7 @@ function com_check(){
 
 function checkPassword(boardNo, pass) {
 	var xhr = new XMLHttpRequest();
-	xhr.open("POST", "/checkPassword", false);
+	xhr.open("POST", "/board/checkPassword", false);
 	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 	xhr.send("boardNo=" + boardNo + "&pass=" + encodeURIComponent(pass));
 

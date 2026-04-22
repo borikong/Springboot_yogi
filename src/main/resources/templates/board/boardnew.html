@@ -88,7 +88,7 @@
 					<!-- 등록 -->
 					<input type="hidden" name="mode" th:value="NEW">
 					<input type="submit" value="등록" class="on">
-					<input type="button" value="취소" th:onclick="|location.href='@{/boardlist}'|">
+					<input type="button" value="취소" th:onclick="|location.href='@{/board/boardlist}'|">
 				</div>
 				<div th:if="${mode=='EDIT'}" class="bt_wrap">
 					<input type="hidden" name="mode" th:value="EDIT">

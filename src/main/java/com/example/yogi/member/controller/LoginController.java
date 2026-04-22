@@ -31,7 +31,7 @@ public class LoginController {
     }
 
     //로그인 처리
-    @PostMapping("/loginProc")
+    @PostMapping("/login")
     public String loginProc(HttpSession session, Model model, MemberRequest request){
 
         Member member;
@@ -59,7 +59,7 @@ public class LoginController {
     }
 
     //아이디 찾기
-    @GetMapping("/searchIdProc")
+    @PostMapping("/searchId")
     public String searchIdProc(Model model,MemberRequest request){
         Member member=memberService.searchId(request.getName(),request.getEmail());
         if(null!=member){
@@ -75,7 +75,7 @@ public class LoginController {
     }
 
     //비밀번호 찾기
-    @GetMapping("/searchPassProc")
+    @PostMapping("/searchPass")
     public String searchPassProc(Model model,MemberRequest request){
         Member member=memberService.searchPass(request.getId(),request.getName(),request.getEmail());
         if(null!=member){

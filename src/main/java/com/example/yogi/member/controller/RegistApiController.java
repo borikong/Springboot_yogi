@@ -13,7 +13,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class RegistApiController {
     private final MemberService memberService;
-    @GetMapping("/check-id")
+    @GetMapping("/member/check-id")
     public Map<String, Object> checkId(@RequestParam String id) {
 
         id=id.replace(" ","");
@@ -25,7 +25,7 @@ public class RegistApiController {
         return result;
     }
 
-    @GetMapping("/check-email")
+    @GetMapping("/member/check-email")
     public Map<String, Object> checkEmail(@RequestParam String email) {
 
         email=email.replace(" ","");

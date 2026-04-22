@@ -7,6 +7,8 @@ import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -15,7 +17,7 @@ public class RegistController {
 
     private final MemberService memberService;
 
-    @RequestMapping({"/newMember"})
+    @GetMapping({"/newMember"})
     public String index(Model model, HttpSession session,MemberRequest request){
 
         if(session.getAttribute("loginID")!=null){
@@ -26,7 +28,7 @@ public class RegistController {
         return "member/regForm";
     }
 
-    @RequestMapping({"/regMember"})
+    @PostMapping({"/regMember"})
     public String register(Model model,MemberRequest request){
 
         boolean flag = memberService.create(request);

@@ -21,7 +21,7 @@ public class BoardController {
     private final int PAGE_SIZE=10;         //한 페이지당 표시되는 게시글수
 
     //게시판 리스트
-    @GetMapping("/boardlist")
+    @GetMapping("/board/boardlist")
     public String index(Model model){
         BoardListResponse response=new BoardListResponse();
         List<Board> boardList = boardService.getBoardList();
