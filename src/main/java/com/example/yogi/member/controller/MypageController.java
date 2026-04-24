@@ -47,8 +47,10 @@ public class MypageController {
 
     //찜삭제
     @GetMapping({"/member/deletelike"})
-    public String deleteLike(HttpSession session,@RequestParam String destId){
+    public String deleteLike(Model model,HttpSession session,@RequestParam String destId){
         memberService.deleteLike(session.getAttribute("loginID").toString(),destId);
+        //관심 여행지 목록 취득
+        setLikeList(model,(String)session.getAttribute("loginID"));
         return "member/mypage";
     }
 

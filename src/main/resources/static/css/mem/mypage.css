@@ -156,11 +156,9 @@ body {
 }
 
 .box-li {
-    display: flex;
-    flex-direction: row;
-    -webkit-box-pack: justify;
-    justify-content: space-between;
+    position: relative;
 }
+
 
 .li-top {
     display: flex;
@@ -209,26 +207,24 @@ dd {
     line-height: 1.36;
 }
 
+
+/* 버튼 영역 */
 .box-wish {
-    display: flex;
-    -webkit-box-align: center;
-    align-items: center;
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
 }
 
-
+/* 버튼 스타일 */
 .wish-btn {
-    display: block;
-    padding: 0px 10px;
-    text-align: center;
-    overflow: hidden;
-    width: 100%;
-    height: 36px;
-    border-radius: 3px;
-    color: #2EA26B;
-    background-color: rgb(255, 255, 255);
-    border: 2px solid #2EA26B;
+    padding: 6px 12px;
+    font-size: 13px;
+    border-radius: 20px;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    color: #666;
     cursor: pointer;
-  	font-weight: 1000;
+    transition: all 0.2s ease;
 }
 
 

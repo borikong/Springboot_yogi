@@ -7,7 +7,7 @@
 
 </head>
 <script>
-	function submitDest(destId) {
+	function submitDelete(destId) {
 		const form = document.getElementById("destForm");
 		document.getElementById("destId").value = destId;
 		form.submit();
@@ -57,7 +57,7 @@
 								<img class="li-img" th:src="${vo.destImg}">
 								<div class="li-content">
 									<!-- 여행지 국가/이름 -->
-									<a href="javascript:void(0);"
+									<a th:href="@{/searchdest/detail(destId=${vo.destId})}"
 									   th:onclick="|submitDest(${vo.destId})|">
 										<span class="rgyBadge" th:text="${vo.destCountry}"></span>&nbsp;
 										<span class="dest_select" th:text="${vo.destName}"></span>
@@ -88,8 +88,8 @@
 
 							<!-- 찜삭제 -->
 							<div class="box-wish">
-								<button class="wish-btn" type="button" height="36" radius="3">
-									<a href="@{/member/deletelike?destId=${vo.destId}">찜 삭제</a>
+								<button class="wish-btn" type="button" height="36" radius="3" th:onclick="|submitDelete(${vo.destId})|">
+									찜 삭제
 								</button>
 							</div>
 						</div>
@@ -108,7 +108,7 @@
 		</div>
 
 <div th:replace="/common/footer"></div>
-<form id="destForm" th:action="@{/searchdest/detail}" method="get">
+<form id="destForm" th:action="@{/member/deletelike}" method="get">
 	<input type="hidden" name="destId" id="destId">
 </form>
 </body>
