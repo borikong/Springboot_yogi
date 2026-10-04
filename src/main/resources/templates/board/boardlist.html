@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/html">
 <head>
     <title>여행은 요기조기-자유게시판</title>
     <th:block th:replace="board/common :: commonHead"></th:block>
@@ -45,8 +45,12 @@
         </div>
         <br>
         <div class="board_page">	<!-- 페이지 영역 -->
-            <a th:href="@{/board/boardlist?page=${page}}"></a>
 <!--            TODO 페이지처리-->
+            <a th:each="page : ${#numbers.sequence(0,board.count/10)}"
+               th:href="@{/board/boardlist(page=${page})}"
+               th:text="${page + 1}"
+               th:class="${page == board.getBoardPage().number} ? 'active' : ''">
+            </a>
         </div>
         <div class="bt_wrap">		<!-- 버튼 영역 -->
             <a th:href="@{/board/new}">

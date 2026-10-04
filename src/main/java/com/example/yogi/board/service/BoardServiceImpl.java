@@ -4,6 +4,9 @@ import com.example.yogi.board.dto.BoardRequest;
 import com.example.yogi.board.entity.Board;
 import com.example.yogi.board.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -55,4 +58,20 @@ public class BoardServiceImpl implements BoardService{
         boardRepository.deleteById(boardNo);
     }
 
+    //게시글 리스트 페이징 처리(작성일 기준 내림차순)
+    @Override
+    public Page<Board> getPagingBoardList(int page, int pageSize) {
+        Pageable pageable = PageRequest.of(page, pageSize, Sort.by("no").descending());       // 현재 요청한 페이지에서 몇 개의 게시글을 가져올지 설정한다.
+
+        Page<Board> boardPage = boardRepository.findAll(pageable);
+
+        // 게시글 번호
+        int tempNo = (int) boardPage.getTotalElements() - page * pageable.getPageSize();
+
+        for (Board board : boardPage.getContent()) {
+            board.setTempNo(tempNo--);
+        }
+
+        return boardPage;
+    }
 }

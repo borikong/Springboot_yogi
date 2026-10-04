@@ -1,12 +1,11 @@
 package com.example.yogi.board.dto;
 
 import com.example.yogi.board.entity.Board;
-import jakarta.persistence.Column;
-import lombok.Setter;
-import org.hibernate.annotations.CreationTimestamp;
+import lombok.Getter;
 
 import java.sql.Timestamp;
 
+@Getter
 public class BoardDetailResponse {
     private int no;						// 번호
     private String title;				// 제목

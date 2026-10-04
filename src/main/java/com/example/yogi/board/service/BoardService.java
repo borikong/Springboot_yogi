@@ -2,6 +2,7 @@ package com.example.yogi.board.service;
 
 import com.example.yogi.board.dto.BoardRequest;
 import com.example.yogi.board.entity.Board;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
@@ -18,5 +19,9 @@ public interface BoardService {
     //게시글 작성
     int write(BoardRequest request);
 
+    //게시글 삭제
     void delete(int boardNo);
+
+    //페이징
+    Page<Board> getPagingBoardList(int page, int pageSize);
 }

@@ -1,11 +1,12 @@
 package com.example.yogi.board.controller;
 
 import com.example.yogi.board.dto.BoardDetailResponse;
-import com.example.yogi.board.dto.BoardRequest;
 import com.example.yogi.board.dto.BoardListResponse;
+import com.example.yogi.board.dto.BoardRequest;
 import com.example.yogi.board.entity.Board;
 import com.example.yogi.board.service.BoardService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,20 +23,20 @@ public class BoardController {
 
     //게시판 리스트
     @GetMapping("/board/boardlist")
-    public String index(Model model){
-        BoardListResponse response=new BoardListResponse();
-        List<Board> boardList = boardService.getBoardList();
-        //페이지당 PAGE_SIZE만큼만 표시
-        List<Board> subList = boardList.subList(0, Math.min(PAGE_SIZE, boardList.size()));
+    public String index(
+            @RequestParam(defaultValue = "0") int page,
+            Model model) {      // @RequestParam(defaultValue = "0") int page 는 URL에 ?page=1 같은 값이 있으면 page에 1을 넣고, page가 없으면 기본값으로 0을 사용한다.
 
-        int i=0;
-        for(Board board:subList){
-            board.setTempNo(++i);
-        }
+        Page<Board> boardPage = boardService.getPagingBoardList(page, PAGE_SIZE);
 
-        response.setCount(boardList.size());
-        response.setBoardList(subList);
-        model.addAttribute("board",response);
+        BoardListResponse response = new BoardListResponse();
+
+        response.setCount((int) boardPage.getTotalElements());
+        response.setBoardList(boardPage.getContent());
+        response.setBoardPage(boardPage);
+
+        model.addAttribute("board", response);
+
         return "board/boardlist";
     }
 
