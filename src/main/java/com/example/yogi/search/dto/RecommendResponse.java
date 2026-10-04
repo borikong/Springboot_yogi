@@ -6,7 +6,9 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.List;
-
+/*
+ * 추천 여행지 response 클래스
+ */
 @Getter
 @Setter
 public class RecommendResponse {

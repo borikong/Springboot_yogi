@@ -2,7 +2,9 @@ package com.example.yogi.search.dto;
 
 import lombok.Getter;
 import lombok.Setter;
-
+/*
+ * 여행지 검색 request 클래스
+ */
 @Getter
 @Setter
 public class DestinationRequest {

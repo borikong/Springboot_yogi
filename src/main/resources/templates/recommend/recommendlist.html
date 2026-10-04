@@ -28,9 +28,9 @@
   </h2>
   <p class="fs-5">&nbsp;&nbsp;▶ ${loginID}님이 <input type="button" class="listbtn" value="찜"
                                                     onclick="window.location.href='index.jsp';">&nbsp;한 데이터를 기반으로,
-    <br><span style="padding-left : 30px;">유사한 취향을 가진 5명의 사용자 데이터를 분석하여 추천해드립니다.</span><br></p>\
+    <br><span style="padding-left : 30px;">유사한 취향을 가진 5명의 사용자 데이터를 분석하여 추천해드립니다.</span><br></p>
   <div th:each="{vo:${destlist}">
-<!--  <c:if test="${mode eq 0}">-->
+<!--  <c:if test="${mode eq 1}">-->
 <!--    <c:forEach var="vo" items="${volist }">-->
 <!--      <form action="GetDestDetailView.de" method="post"-->
 <!--            id="viewForm${vo.getDEST_NAME()}">-->

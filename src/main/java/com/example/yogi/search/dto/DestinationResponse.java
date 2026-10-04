@@ -8,7 +8,9 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-
+/*
+ * 여행지 검색 response 클래스
+ */
 @Getter
 @Setter
 public class DestinationResponse {
@@ -34,7 +36,6 @@ public class DestinationResponse {
     private String money;                   //선택한 우선순위
     private String landscape;               //선택한 우선순위
     private String fun;                     //선택한 우선순위
-
 
     //Entity -> DTO
     public DestinationResponse(Destination destination){

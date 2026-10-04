@@ -26,12 +26,11 @@ public class DestinationController {
     private final MemberService memberService;
     private static final String ACTION_PRIORITY="priSearch";
 
+    //초기화면, 여행지 검색
     @RequestMapping({"/searchdest","/searchdest/index","/searchdest/search"})
     public String index(Model model, DestinationRequest request,
                         @RequestParam(required = false) String action,
                         HttpSession session){
-        model.addAttribute("request",request);
-
         //관심 여행지 목록 취득
         setLikeList(model,(String)session.getAttribute("loginID"));
 
@@ -63,7 +62,6 @@ public class DestinationController {
     @GetMapping("/searchdest/detail")
     public String index(Model model, DestDetailRequest request, HttpSession session){
         Destination destination = destinationService.getDestDetail(request);
-
         DestDetailResponse response=new DestDetailResponse(destination);
 
         String id =(String) session.getAttribute("loginID");

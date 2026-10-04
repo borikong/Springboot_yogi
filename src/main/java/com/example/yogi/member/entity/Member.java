@@ -11,7 +11,6 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 public class Member {
-
     @Id
     private String id;
     private String pass;

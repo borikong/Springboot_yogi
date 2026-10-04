@@ -5,7 +5,9 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
-
+/*
+ * 여행지 상세 페이지 response 클래스
+ */
 @Getter
 @Setter
 public class DestDetailResponse {

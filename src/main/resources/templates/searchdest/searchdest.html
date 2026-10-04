@@ -13,18 +13,28 @@
 
     <title>여행지 조회</title>
 </head>
-<script language="JavaScript">
+<script th:inline="javascript">
+    //우선순위 선택 필드 검증
     function checkPriority(){
         const money = document.getElementById("money").value;
         const landscape = document.getElementById("landscape").value;
         const fun = document.getElementById("fun").value;
         if(!money||!landscape||!fun){
-            alert("우선순위를 모두 선택해주세요.");
+            alert(/*[[#{error.priority.required}]]*/); //
             return false;
         }
         return true;
     }
 
+    //추천 리스트 생성시 로그인 여부 검증
+    function checkLogin() {
+        const loginID = /*[[${session.loginID}]]*/ null;
+        if (loginID == null) {
+            alert(/*[[#{error.login.required}]]*/);
+            return false;
+        }
+        return true;
+    }
 </script>
 
 <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
@@ -79,7 +89,9 @@
                 <button class="btn btn-dark" type="submit" name= "action" value="priSearch" onclick="return checkPriority()">검색</button>
             </div>
         </div>
-        <!-- 3. 추천 -->
+    </form>
+    <form action="/recommend" method="post" class="search_form">
+        <!-- 3. 추천 여행지 리스트 -->
         <div class="search-box">
             <span class="search_title">나만의 추천 여행지 리스트!&nbsp;
                 <span class="tooltip_custom">?
@@ -89,7 +101,7 @@
                 </span>
             </span>
             <div class="search-row">
-                <button class="btn btn-outline-dark" type="submit">추천 리스트 보기</button>
+                <button class="btn btn-outline-dark" type="submit" onclick="return checkLogin()">추천 리스트 보기</button>
             </div>
         </div>
     </form>

@@ -1,20 +1,14 @@
 package com.example.yogi.search.service;
 
-import com.example.yogi.member.entity.Member;
-import com.example.yogi.member.repository.MemberRepository;
 import com.example.yogi.search.dto.DestDetailRequest;
 import com.example.yogi.search.dto.DestinationRequest;
-import com.example.yogi.search.dto.DestinationResponse;
 import com.example.yogi.search.entity.Destination;
 import com.example.yogi.search.repository.DestinationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
-import java.util.stream.Stream;
 
 @Service
 @RequiredArgsConstructor
@@ -99,8 +93,6 @@ public class DestinationServiceImpl implements DestinationService {
 
     @Override
     public Destination getDestDetail(DestDetailRequest request) {
-        Destination destination=destinationRepository.findById(request.getDestId()).orElseThrow();
-
-        return destination;
+        return destinationRepository.findById(request.getDestId()).orElseThrow();
     }
 }

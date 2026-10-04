@@ -25,6 +25,7 @@ public class MemberServiceImpl implements MemberService{
     //관심여행지 목록 번호 취득
     @Override
     public List<Long> findUserLikeById(String id){
+
         List<Long> userLikeList=null;
         try{
             userLikeList = memberRepository.findById(id)

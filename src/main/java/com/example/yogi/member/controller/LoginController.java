@@ -15,17 +15,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class LoginController {
     MemberService memberService;
 
-    @PostMapping("/logintest")
-    public String LoginTest(HttpSession session){
-        session.setAttribute("loginID","testId");
-        return "home";
-    }
-
     //로그인 화면으로
     @GetMapping("/login")
     public String login(HttpSession session){
-        if(null!=session.getAttribute("loginId")){
-            session.removeAttribute("loginId");
+        if(null!=session.getAttribute("loginID")){
+            session.removeAttribute("loginID");
         }
         return "member/login";
     }

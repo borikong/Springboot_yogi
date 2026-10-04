@@ -1,14 +1,11 @@
 package com.example.yogi.search.service;
 
-import com.example.yogi.member.dto.MemberResponse;
 import com.example.yogi.member.entity.Member;
 import com.example.yogi.member.repository.MemberRepository;
-import com.example.yogi.search.dto.DestinationResponse;
 import com.example.yogi.search.dto.RecommendResponse;
 import com.example.yogi.search.entity.Destination;
 import com.example.yogi.search.repository.DestinationRepository;
 import lombok.RequiredArgsConstructor;
-import org.apache.coyote.Response;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -21,42 +18,53 @@ public class RecommendServiceImpl implements RecommendService{
     private final MemberRepository memberRepository;
 
     @Override
-    public RecommendResponse getRecommendList(String id) {
-        RecommendResponse response=new RecommendResponse();
-
-        if(null==id || "".equals(id)){
-            response.setMode(RecommendResponse.Mode.NOT_LOGIN);
-            return response;
-        }
+    public List<Destination> getRecommendList(String id) {
 
         //사용자 관심 여행지 취득
-        List<String> userLikeList = memberRepository.findById(id)
-                .map(member -> Arrays.stream(member.getUserlike().split(",")))
-                .orElseGet(Stream::empty)
-                .map(String::trim)
-                .toList();
+//        List<String> userLikeList = memberRepository.findById(id)
+//                .map(member -> Arrays.stream(member.getUserlike().split(",")))
+//                .orElseGet(Stream::empty)
+//                .map(String::trim)
+//                .toList();
 
-        if(userLikeList.size()==0){
-            response.setMode(RecommendResponse.Mode.EMPTY_FAVORITE);
-            return response;
+        //모든 유저 정보 취득
+        List<Member> memberList = memberRepository.findAll();
+
+        // 평가 행렬
+        Map<String, Map> matrix = new HashMap<>();// 사용자id, 사용자 ratingMatrix
+
+        for(Member member:memberList){
+            //사용자의 좋아요 표시한 여행지id를 리스트로 취득
+            List<String> likeList = Optional.ofNullable(member.getUserlike())
+                    .map(value -> Arrays.stream(value.split(",")))
+                    .orElseGet(Stream::empty)
+                    .map(String::trim)
+                    .toList();
+
+            Map<String, Double> ratingMatrix = new HashMap<>(); //각 유저별로 찜한 여행지id=점수 {1=1.0, 5=1.0...}
+
+            for (String destId : likeList){
+                ratingMatrix.put(destId,1.0); //좋아요 표시한 여행지는 무조건 1점
+            }
+
+            // 사용자id, 해당 사용자의 ratingMatrix
+            matrix.put(member.getId(),ratingMatrix);
         }
 
-        response.setMode(RecommendResponse.Mode.HAS_RECOMMEND);
-
         //TODO
-        List<DestinationResponse> recommendList = new ArrayList<>();
+        List<Destination> recommendList = new ArrayList<>();
 
-//        destinationRepository.findById();
-        return response;
+
+        return recommendList;
     }
 
     //추천 리스트 생성 로직
-//    //param 사용자ID, 사용자 관심여행지 Id 리스트
-//    private List<DestinationResponse> getRecList(String loginID, List<String> likeList){
+    //param 사용자ID, 사용자 관심여행지 Id 리스트
+//    private List<Destination> getRecList(String loginID, List<String> likeList) {
 //        Vector<Destination> destList = new Vector<>();
 //        Vector<Member> memberList = new Vector<>();
 //
-//        for (String destId : likeList){
+//        for (String destId : likeList) {
 //            destList.add(destinationRepository.findById(destId).map(Destination::new).orElseThrow());
 //        }
 //
@@ -78,8 +86,8 @@ public class RecommendServiceImpl implements RecommendService{
 //                }
 //            } else { //target user가 아니라면(유사한 사용자 후보)
 //                Map<String, Double> candiuser = new HashMap<>(); //각 유저별로 찜한 목록과 점수 저장 {"센소지"=1.0, "후지산=1.0...}
-//                if(member.getUserlike()!=null) { //좋아요 한 리스트가 있는 유저라면
-//                    String[] targetlikelist = dest.getUserlike().split(","); //"센소지, 후지산..." ->["센소지", "후지산"...]
+//                if (member.getUserlike() != null) { //좋아요 한 리스트가 있는 유저라면
+//                    String[] targetlikelist = destinationRepository.getUserlike().split(","); //"센소지, 후지산..." ->["센소지", "후지산"...]
 //                    for (int i = 0; i < targetlikelist.length; i++) {
 //                        candiuser.put(targetlikelist[i], 1.0); //{"센소지"=1.0, "후지산=1.0...}
 //                    }
@@ -100,25 +108,25 @@ public class RecommendServiceImpl implements RecommendService{
 //
 //        // sort(오름차순 정렬)
 //        List<String> similarUsers = new ArrayList<>(simMatrix.keySet()); //key 기준으로 정렬
-//        Collections.sort(similarUsers,Collections.reverseOrder()); //유사한 사용자를 내림차순으로 정렬
+//        Collections.sort(similarUsers, Collections.reverseOrder()); //유사한 사용자를 내림차순으로 정렬
 //
 //        //여기에 상위 몇명의 similarUsers까지 사용할지 슬라이싱 하는 코드 작성
-//        if(similarUsers.size()>5) {
-//            similarUsers=similarUsers.subList(0, 5);
+//        if (similarUsers.size() > 5) {
+//            similarUsers = similarUsers.subList(0, 5);
 //        }
 //
 //        //많이 나온 여행지 개수 세기
-//        Map<String, Integer> destlist=new HashMap<>();
+//        Map<String, Integer> destlist = new HashMap<>();
 //        for (String string : similarUsers) {
-//            String userid=string.split(" ")[1]; //정렬된 similarUser에서 userid맨 빼오기
-//            for(Object key : ratingMatrix.get(userid).keySet()) {
-//                if(!key.equals("")) {
-//                    try{
+//            String userid = string.split(" ")[1]; //정렬된 similarUser에서 userid맨 빼오기
+//            for (Object key : ratingMatrix.get(userid).keySet()) {
+//                if (!key.equals("")) {
+//                    try {
 //                        //키가 이미 destlist에 있을때
-//                        destlist.put((String)key, destlist.get(key)+1);
-//                    }catch(Exception e) {
+//                        destlist.put((String) key, destlist.get(key) + 1);
+//                    } catch (Exception e) {
 //                        //키가 destlist에 없을때 새로 넣어줌(count=1부터)
-//                        destlist.put((String)key, 1);
+//                        destlist.put((String) key, 1);
 //                    }
 //                }
 //            }
@@ -126,26 +134,62 @@ public class RecommendServiceImpl implements RecommendService{
 //        }
 //
 //        //destlist의 [frequency+여행지 이름] 문자열로 합쳐진 배열을 만들어줌(정렬을 위해서)
-//        List<String> sortedList=new ArrayList<>();
+//        List<String> sortedList = new ArrayList<>();
 //
 //        for (String string : destlist.keySet()) {
-//            sortedList.add(destlist.get(string)+","+string); // ,로 구분
+//            sortedList.add(destlist.get(string) + "," + string); // ,로 구분
 //        }
 //
 //        //후보지 내림차순 정렬
-//        Collections.sort(sortedList,Collections.reverseOrder());
+//        Collections.sort(sortedList, Collections.reverseOrder());
 //
-//        ArrayList<String> keywords=new ArrayList<>();
+//        ArrayList<String> keywords = new ArrayList<>();
 //
-//        for (String string:sortedList) {
-//            System.out.println(string.split(",")[1]+":"+string.split(",")[0]);
+//        for (String string : sortedList) {
+//            System.out.println(string.split(",")[1] + ":" + string.split(",")[0]);
 //            keywords.add(string.split(",")[1]);
 //        }
 //
 //
 //        //후보지 추천 Vector 가져오기
-//        DestDAO ddao=DestDAO.getInstance();
-//        Vector<DestVO> volist=ddao.getRecommandList(keywords);
+//        DestDAO ddao = DestDAO.getInstance();
+//        Vector<DestVO> volist = ddao.getRecommandList(keywords);
 //
-//        return volist
+//        return volist;
+//    }
+//
+//    // 두 벡터 간의 cosine similarity를 계산하는 메소드
+//    public static double cosineSimilarity(Map<String, Double> vector1, Map<String, Double> vector2) {
+//        // 벡터의 길이 계산
+//        // 분자
+//        double vector1Magnitude = 0.0;
+//        for (double value : vector1.values()) {
+//            vector1Magnitude += value * value;
+//        }
+//        vector1Magnitude = Math.sqrt(vector1Magnitude);
+//
+//        double vector2Magnitude = 0.0;
+//        for (double value : vector2.values()) {
+//            vector2Magnitude += value * value;
+//        }
+//        vector2Magnitude = Math.sqrt(vector2Magnitude);
+//
+//        // dot product 계산 내적합 분모
+//        double dotProduct = 0.0;
+//        for (String key : vector1.keySet()) {
+//            if (vector2.containsKey(key)) {
+//                dotProduct += vector1.get(key) * vector2.get(key);
+//            }
+//        }
+//
+//        // cosine similarity 계산
+//        double cosineSimilarity;
+//        if (vector1Magnitude == 0.0 || vector2Magnitude == 0.0) {
+//            cosineSimilarity = 0.0;
+//        } else {
+//            cosineSimilarity = dotProduct / (vector1Magnitude * vector2Magnitude);
+//        }
+//
+//        return cosineSimilarity;
+//    } // end cosineSimilarity
 }
