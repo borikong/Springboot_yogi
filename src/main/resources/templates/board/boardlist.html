@@ -30,7 +30,7 @@
                 </div>
                 <div th:each="bo : ${board.boardList}" class="row">
                     <div class="num">
-                        <span th:text="${bo.tempNo}"></span>
+                        <span th:text="${bo.no}"></span>
                     </div>
                     <div class="title">
                         <a th:href="@{/board/detail(no=${bo.no})}">

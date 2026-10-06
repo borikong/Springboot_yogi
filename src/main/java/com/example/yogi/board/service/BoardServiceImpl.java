@@ -66,13 +66,6 @@ public class BoardServiceImpl implements BoardService{
 
         Page<Board> boardPage = boardRepository.findAll(pageable);
 
-        // 게시글 번호
-        int tempNo = (int) boardPage.getTotalElements() - page * pageable.getPageSize();
-
-        for (Board board : boardPage.getContent()) {
-            board.setTempNo(tempNo--);
-        }
-
         return boardPage;
     }
     //게시글 검색 처리
@@ -81,13 +74,6 @@ public class BoardServiceImpl implements BoardService{
         Pageable pageable = PageRequest.of(page, pageSize, Sort.by("no").descending());
 
         Page<Board> searchBoardPage = boardRepository.findByTitleContaining(keyword, pageable);
-
-        // 게시글 번호
-        int tempNo = (int) searchBoardPage.getTotalElements() - page * pageable.getPageSize();
-
-        for (Board board : searchBoardPage.getContent()) {
-            board.setTempNo(tempNo--);
-        }
 
         return searchBoardPage;
     }
