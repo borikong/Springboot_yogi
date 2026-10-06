@@ -37,7 +37,7 @@ public class BoardController {
 
         model.addAttribute("board", response);
 
-        return "board/boardlist";
+        return "board/boardlist";//커밋 테스트
     }
 
     //게시판 글 상세
