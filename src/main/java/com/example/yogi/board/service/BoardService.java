@@ -25,6 +25,14 @@ public interface BoardService {
     //페이징
     Page<Board> getPagingBoardList(int page, int pageSize);
 
-    //게시판 검색
-    Page<Board> searchBoardList(String keyword, int page, int pageSize);
+    //게시판 모든 항목 검색
+    Page<Board> findByAllContaining(String keyword, int page, int pageSize);
+    //게시판 no 검색
+    Page<Board> findByNoContaining(String keyword, int page, int pageSize);
+    //게시판 제목 검색
+    Page<Board> findByTitleContaining(String keyword, int page, int pageSize);
+    //게시판 작성자 검색
+    Page<Board> findByWriterContaining(String keyword, int page, int pageSize);
+    //게시판 내용 검색
+    Page<Board> findByContentContaining(String keyword, int page, int pageSize);
 }

@@ -24,7 +24,7 @@ public class BoardController {
     //게시판 리스트
     @GetMapping("/board/boardlist")
     public String index(
-            @RequestParam(defaultValue = "0") int page, @RequestParam(required = false) String keyword, //URL에서 keyword라는 값을 가져와서 String keyword 변수에 넣어라
+            @RequestParam(defaultValue = "0") int page, @RequestParam(required = false) String keyword, @RequestParam(required = false) String searchType,//URL에서 keyword라는 값을 가져와서 String keyword 변수에 넣어라
             Model model) {      // @RequestParam(defaultValue = "0") int page 는 URL에 ?page=1 같은 값이 있으면 page에 1을 넣고, page가 없으면 기본값으로 0을 사용한다.
 
         BoardListResponse response = new BoardListResponse();
@@ -34,9 +34,21 @@ public class BoardController {
         if (keyword == null || keyword.isBlank()) {
             // 검색어가 없으면 전체 게시글
             boardPage = boardService.getPagingBoardList(page, PAGE_SIZE);
-        } else {
-            // 검색어가 있으면 검색 결과
-            boardPage = boardService.searchBoardList(keyword, page, PAGE_SIZE);
+        } else if (searchType.equals("all")){
+            // 모든 항목 검색 결과
+            boardPage = boardService.findByAllContaining(keyword, page, PAGE_SIZE);
+        }else if (searchType.equals("no")){
+            // 번호 검색 결과
+            boardPage = boardService.findByNoContaining(keyword, page, PAGE_SIZE);
+        }else if (searchType.equals("title")){
+            // 제목 검색 결과
+            boardPage = boardService.findByTitleContaining(keyword, page, PAGE_SIZE);
+        }else if (searchType.equals("writer")){
+            // 작성자 검색 결과
+            boardPage = boardService.findByWriterContaining(keyword, page, PAGE_SIZE);
+        }else {
+            // 내용 검색 결과
+            boardPage = boardService.findByContentContaining(keyword, page, PAGE_SIZE);
         }
 
         int totalPage = boardPage.getTotalPages();
@@ -56,6 +68,7 @@ public class BoardController {
 
         model.addAttribute("board", response);
         model.addAttribute("keyword", keyword);
+        model.addAttribute("searchType", searchType);
 
         return "board/boardlist";
     }

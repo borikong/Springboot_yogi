@@ -68,13 +68,39 @@ public class BoardServiceImpl implements BoardService{
 
         return boardPage;
     }
-    //게시글 검색 처리
+    //게시글 모든 항목 검색 처리
     @Override
-    public Page<Board> searchBoardList(String keyword, int page, int pageSize) {
+    public Page<Board> findByAllContaining(String keyword, int page, int pageSize) {
         Pageable pageable = PageRequest.of(page, pageSize, Sort.by("no").descending());
 
-        Page<Board> searchBoardPage = boardRepository.findByTitleContaining(keyword, pageable);
+        return boardRepository.findByAllContaining(keyword, pageable);
+    }
+    //게시글 no 검색 처리
+    @Override
+    public Page<Board> findByNoContaining(String keyword, int page, int pageSize) {
+        Pageable pageable = PageRequest.of(page, pageSize, Sort.by("no").descending());
 
-        return searchBoardPage;
+        return boardRepository.findByNoContaining(keyword, pageable);
+    }
+    //게시글 제목 검색 처리
+    @Override
+    public Page<Board> findByTitleContaining(String keyword, int page, int pageSize) {
+        Pageable pageable = PageRequest.of(page, pageSize, Sort.by("no").descending());
+
+        return boardRepository.findByTitleContaining(keyword, pageable);
+    }
+    //게시글 작성자 검색 처리
+    @Override
+    public Page<Board> findByWriterContaining(String keyword, int page, int pageSize) {
+        Pageable pageable = PageRequest.of(page, pageSize, Sort.by("no").descending());
+
+        return boardRepository.findByWriterContaining(keyword, pageable);
+    }
+    //게시글 내용 검색 처리
+    @Override
+    public Page<Board> findByContentContaining(String keyword, int page, int pageSize) {
+        Pageable pageable = PageRequest.of(page, pageSize, Sort.by("no").descending());
+
+        return boardRepository.findByContentContaining(keyword, pageable);
     }
 }
