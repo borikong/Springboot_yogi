@@ -46,7 +46,7 @@
         <br>
         <div class="board_page">	<!-- 페이지 영역 -->
 <!--            TODO 페이지처리-->
-            <a th:each="page : ${#numbers.sequence(0,board.count/10)}"
+            <a th:each="page : ${#numbers.sequence(0,(board.count - 1)/10)}"
                th:href="@{/board/boardlist(page=${page})}"
                th:text="${page + 1}"
                th:class="${page == board.getBoardPage().number} ? 'active' : ''">
