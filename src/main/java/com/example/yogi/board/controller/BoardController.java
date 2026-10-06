@@ -24,16 +24,27 @@ public class BoardController {
     //게시판 리스트
     @GetMapping("/board/boardlist")
     public String index(
-            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "0") int page, 
             Model model) {      // @RequestParam(defaultValue = "0") int page 는 URL에 ?page=1 같은 값이 있으면 page에 1을 넣고, page가 없으면 기본값으로 0을 사용한다.
 
         Page<Board> boardPage = boardService.getPagingBoardList(page, PAGE_SIZE);
 
         BoardListResponse response = new BoardListResponse();
 
+        int totalPage = boardPage.getTotalPages();
+        int currentPage = boardPage.getNumber();
+        int pageBlock = 10;
+
+        //현재 페이지가 속한 페이지 묶음의 시작 번호
+        int startPage = (currentPage / pageBlock) * pageBlock;
+        //그 묶음의 끝 번호. 단, 실제 전체 페이지보다 커지면 전체 페이지까지만
+        int endPage = Math.min(startPage + pageBlock, totalPage);
+
         response.setCount((int) boardPage.getTotalElements());
         response.setBoardList(boardPage.getContent());
         response.setBoardPage(boardPage);
+        response.setStartPage(startPage);
+        response.setEndPage(endPage);
 
         model.addAttribute("board", response);
 

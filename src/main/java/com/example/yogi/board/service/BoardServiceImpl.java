@@ -53,6 +53,7 @@ public class BoardServiceImpl implements BoardService{
         return boardRepository.save(board).getNo();
     }
 
+    //게시글 삭제
     @Override
     public void delete(int boardNo) {
         boardRepository.deleteById(boardNo);

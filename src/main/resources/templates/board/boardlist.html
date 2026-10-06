@@ -46,10 +46,18 @@
         <br>
         <div class="board_page">	<!-- 페이지 영역 -->
 <!--            TODO 페이지처리-->
-            <a th:each="page : ${#numbers.sequence(0,(board.count - 1)/10)}"
+            <a th:if="${board.startPage > 0}"
+               th:href="@{/board/boardlist(page=${board.startPage - 1})}">
+                &lt;&lt;
+            </a>
+            <a th:each="page : ${#numbers.sequence(board.startPage, board.endPage - 1)}"
                th:href="@{/board/boardlist(page=${page})}"
                th:text="${page + 1}"
                th:class="${page == board.getBoardPage().number} ? 'active' : ''">
+            </a>
+            <a th:if="${board.endPage < board.boardPage.totalPages}"
+               th:href="@{/board/boardlist(page=${board.endPage})}">
+                &gt;&gt;
             </a>
         </div>
         <div class="bt_wrap">		<!-- 버튼 영역 -->
