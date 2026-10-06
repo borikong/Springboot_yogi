@@ -26,6 +26,9 @@ public class MemberServiceImpl implements MemberService{
     @Override
     public List<Long> findUserLikeById(String id){
 
+        if(id==null || id=="")
+            return new ArrayList<>();
+
         List<Long> userLikeList=null;
         try{
             userLikeList = memberRepository.findById(id)

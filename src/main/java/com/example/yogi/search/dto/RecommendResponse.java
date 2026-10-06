@@ -1,10 +1,8 @@
 package com.example.yogi.search.dto;
 
-import com.example.yogi.search.entity.Destination;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
 import java.util.List;
 /*
  * 추천 여행지 response 클래스
@@ -19,6 +17,7 @@ public class RecommendResponse {
         EMPTY_FAVORITE   // 찜 없음
     }
 
-    private List<DestinationResponse> destList;
+    private List<DestItemResponse> destList;
     private Mode mode;
+    private List<Long> likeList;
 }

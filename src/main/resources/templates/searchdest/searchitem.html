@@ -8,11 +8,11 @@
 </script>
 <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900" rel="stylesheet">
 
-<div th:if="${#lists.isEmpty(destlist)}" id="noresults">
+<div th:if="${#lists.isEmpty(response.destList)}" id="noresults">
 	<p align="center">검색된 결과가 없습니다.</p>
 </div>
 
-<div th:each="vo : ${destlist}" class="resume-wrap d-flex ftco-animate">
+<div th:each="vo : ${response.destList}" class="resume-wrap d-flex ftco-animate">
 	<div class="text pl-3">
 		<!--여행지 클릭시 여행지 상세페이지 -->
 		<img th:src="${vo.destImg}" class="rounded float-start" th:alt="${vo.destName}" id="dest_img" width="400px">
@@ -40,15 +40,15 @@
 		<div>
 			<a href="javascript:void(0);"
 			   th:data-a="${vo.destId}"
-			   th:data-b="${#lists.contains(likeList, vo.destId) ? 'active' : 'nonactive'}"
+			   th:data-b="${#lists.contains(response.likeList, vo.destId) ? 'active' : 'nonactive'}"
 			   th:data-c="${session.loginID}"
-			   th:class="${#lists.contains(likeList, vo.destId) ? 'icon2 heart active' : 'icon2 heart'}">
+			   th:class="${#lists.contains(response.likeList, vo.destId) ? 'icon2 heart active' : 'icon2 heart'}">
 
-				<img th:src="${#lists.contains(likeList, vo.destId) ?
+				<img th:src="${#lists.contains(response.likeList, vo.destId) ?
                      'https://cdn-icons-png.flaticon.com/512/803/803087.png' :
                      'https://cdn-icons-png.flaticon.com/512/812/812327.png'}"
 
-					 th:alt="${#lists.contains(likeList, vo.destName) ?
+					 th:alt="${#lists.contains(response.likeList, vo.destName) ?
                      '찜하기 완료' : '찜하기'}">
 			</a>
 		</div>

@@ -1,10 +1,7 @@
 package com.example.yogi.search.controller;
 
 import com.example.yogi.member.service.MemberService;
-import com.example.yogi.search.dto.DestDetailRequest;
-import com.example.yogi.search.dto.DestDetailResponse;
-import com.example.yogi.search.dto.DestinationRequest;
-import com.example.yogi.search.dto.DestinationResponse;
+import com.example.yogi.search.dto.*;
 import com.example.yogi.search.entity.Destination;
 import com.example.yogi.search.service.DestinationService;
 import jakarta.servlet.http.HttpSession;
@@ -31,8 +28,10 @@ public class DestinationController {
     public String index(Model model, DestinationRequest request,
                         @RequestParam(required = false) String action,
                         HttpSession session){
+        DestinationResponse response = new DestinationResponse();
+        String loginId=(String)session.getAttribute("loginID");
         //관심 여행지 목록 취득
-        setLikeList(model,(String)session.getAttribute("loginID"));
+        response.setLikeList(memberService.findUserLikeById(loginId));
 
         List<Destination> destList;
 
@@ -44,18 +43,12 @@ public class DestinationController {
             destList=destinationService.searchDestByKeyword(request);
         }
 
-        model.addAttribute("destlist",destList.stream().map(DestinationResponse::new).toList());
-        model.addAttribute("request",request);
+        //response 리스트 반환
+        response.setDestList(destList.stream().map(DestItemResponse::new).toList());
+        model.addAttribute("response", response);
+        model.addAttribute("request", request);
 
         return "searchdest/searchdest";
-    }
-
-    private void setLikeList(Model model, String loginId) {
-        if (loginId != null) {
-            model.addAttribute("likeList", memberService.findUserLikeById(loginId));
-        } else {
-            model.addAttribute("likeList", new ArrayList<>());
-        }
     }
 
     //여행지 상세

@@ -1,7 +1,7 @@
 package com.example.yogi.search.controller;
 
 import com.example.yogi.member.service.MemberService;
-import com.example.yogi.search.dto.RecommendRequest;
+import com.example.yogi.search.dto.DestItemResponse;
 import com.example.yogi.search.dto.RecommendResponse;
 import com.example.yogi.search.entity.Destination;
 import com.example.yogi.search.service.RecommendService;
@@ -28,16 +28,20 @@ public class RecommendListController {
         if(loginID==null || loginID.isEmpty()){
             return "member/login";
         }
+        List<Long> likeList=memberService.findUserLikeById(loginID);
 
         //좋아요 표시 목록이 없는 경우
-        if(memberService.findUserLikeById(loginID).isEmpty()){
+        if(likeList.isEmpty()){
             response.setMode(RecommendResponse.Mode.EMPTY_FAVORITE);
         }else{
+        //좋아요 표시 목록이 있는 경우
+            response.setLikeList(likeList); //좋아요 표시 목록
             response.setMode(RecommendResponse.Mode.HAS_RECOMMEND);
             //추천 여행지 목록 취득
             List<Destination> recommendList = recommendService.getRecommendList(loginID);
-            model.addAttribute("destlist", response);
+            response.setDestList(recommendList.stream().map(DestItemResponse::new).toList());
         }
+
         model.addAttribute("response", response);
         return "recommend/recommendlist";
     }

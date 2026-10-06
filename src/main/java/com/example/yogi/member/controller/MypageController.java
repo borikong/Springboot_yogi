@@ -2,7 +2,7 @@ package com.example.yogi.member.controller;
 
 import com.example.yogi.member.dto.MemberRequest;
 import com.example.yogi.member.service.MemberService;
-import com.example.yogi.search.dto.DestinationResponse;
+import com.example.yogi.search.dto.DestItemResponse;
 import com.example.yogi.search.entity.Destination;
 import com.example.yogi.search.service.DestinationService;
 import jakarta.servlet.http.HttpSession;
@@ -57,10 +57,10 @@ public class MypageController {
     //관심여행지 데이터 취득
     private void setLikeList(Model model, String loginId) {
         if (loginId != null) {
-            List<DestinationResponse> likeList=new ArrayList<>();
+            List<DestItemResponse> likeList=new ArrayList<>();
             List<Destination> destList=destinationService.searchDestListByNo(memberService.findUserLikeById(loginId));
             for(Destination dest:destList){
-                likeList.add(new DestinationResponse(dest));
+                likeList.add(new DestItemResponse(dest));
             }
             model.addAttribute("likeList",likeList);
         }
