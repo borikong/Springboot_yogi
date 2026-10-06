@@ -48,7 +48,6 @@
         </div>
         <br>
         <div class="board_page">	<!-- 페이지 영역 -->
-<!--            TODO 페이지처리-->
             <a th:if="${board.startPage > 0}"
                th:href="@{/board/boardlist(page=${board.startPage - 1}, searchType=${searchType}, keyword=${keyword})}">
                 &lt;&lt;
@@ -63,7 +62,7 @@
                 &gt;&gt;
             </a>
         </div>
-        <div class="board_search">
+        <div class="board_search">      <!-- 검색 영역 -->
             <form th:action="@{/board/boardlist}" method="get">
                 <select name="searchType">
                     <option value="all" th:selected="${searchType == 'all'}">모든 항목</option>
