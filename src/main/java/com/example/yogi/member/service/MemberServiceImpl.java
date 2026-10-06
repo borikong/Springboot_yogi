@@ -1,6 +1,5 @@
 package com.example.yogi.member.service;
 
-import com.example.yogi.board.entity.Board;
 import com.example.yogi.member.dto.MemberRequest;
 import com.example.yogi.member.entity.Member;
 import com.example.yogi.member.repository.MemberRepository;
