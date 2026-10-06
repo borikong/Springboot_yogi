@@ -75,4 +75,20 @@ public class BoardServiceImpl implements BoardService{
 
         return boardPage;
     }
+    //게시글 검색 처리
+    @Override
+    public Page<Board> searchBoardList(String keyword, int page, int pageSize) {
+        Pageable pageable = PageRequest.of(page, pageSize, Sort.by("no").descending());
+
+        Page<Board> searchBoardPage = boardRepository.findByTitleContaining(keyword, pageable);
+
+        // 게시글 번호
+        int tempNo = (int) searchBoardPage.getTotalElements() - page * pageable.getPageSize();
+
+        for (Board board : searchBoardPage.getContent()) {
+            board.setTempNo(tempNo--);
+        }
+
+        return searchBoardPage;
+    }
 }

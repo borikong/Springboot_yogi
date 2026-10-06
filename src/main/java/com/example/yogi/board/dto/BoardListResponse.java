@@ -15,4 +15,5 @@ public class BoardListResponse {
     private Page<Board> boardPage;
     private int startPage;
     private int endPage;
+    private String keyword;             // 검색 키워드
 }

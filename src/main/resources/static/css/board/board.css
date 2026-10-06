@@ -250,6 +250,11 @@ a {	/* a태그 설정 */
 	background-color: #ddd;  /* 현재 페이지 배경색 */
 	font-weight: bold;       /* 현재 페이지 글씨 굵게 */
 }
+.board_search {
+	text-align: right;
+	margin-bottom: 20px;
+	font-size: 25px;
+}
 
 .board_view { /* 작성된 글 전체 설정 */
 	width: 100%;				/* 너비설정 */

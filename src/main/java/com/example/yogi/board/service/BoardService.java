@@ -24,4 +24,7 @@ public interface BoardService {
 
     //페이징
     Page<Board> getPagingBoardList(int page, int pageSize);
+
+    //게시판 검색
+    Page<Board> searchBoardList(String keyword, int page, int pageSize);
 }
