@@ -28,7 +28,9 @@ a {	/* a태그 설정 */
 	margin: 5px;				/* 여백 설정 */
 	font-size: 15px;			/* 폰트사이즈 설정 */
 }
+.board_count{
 
+}
 .bt_wrap { /* 버튼 설정 */
 	margin-top: 30px;			/* 위에 여백 설정 */
 	text-align: center;			/* 가운데 정렬 */
