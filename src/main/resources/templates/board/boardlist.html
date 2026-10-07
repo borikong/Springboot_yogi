@@ -36,7 +36,7 @@
                         <span th:text="${bo.no}"></span>
                     </div>
                     <div class="title">
-                        <a th:href="@{/board/detail(no=${bo.no})}">
+                        <a th:href="@{/board/detail(no=${bo.no},page=${page}, searchType=${searchType}, keyword=${keyword})}">
                             <span th:text="${bo.title}"></span>
                         </a>
                     </div>

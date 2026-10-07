@@ -66,6 +66,7 @@ public class BoardController {
         response.setStartPage(startPage);
         response.setEndPage(endPage);
 
+        model.addAttribute("page", page);
         model.addAttribute("board", response);
         model.addAttribute("keyword", keyword);
         model.addAttribute("searchType", searchType);
@@ -75,10 +76,13 @@ public class BoardController {
 
     //게시판 글 상세
     @GetMapping("/board/detail")
-    public String detail(Model model, @RequestParam int no){
+    public String detail(@RequestParam(defaultValue = "0") int page, @RequestParam(required = false) String keyword, @RequestParam(required = false) String searchType, Model model, @RequestParam int no){
         boardService.addCount(no); //조회수 업데이트
 
         model.addAttribute("board",getBoardDetailResponse(no));
+        model.addAttribute("page", page);
+        model.addAttribute("keyword", keyword);
+        model.addAttribute("searchType", searchType);
         return "board/boarddetail";
     }
 
@@ -90,20 +94,26 @@ public class BoardController {
 
     //글 수정 폼으로
     @GetMapping("/board/edit")
-    public String editBoard(Model model, @RequestParam int no){
+    public String editBoard(Model model, @RequestParam(defaultValue = "0") int page, @RequestParam(required = false) String keyword, @RequestParam(required = false) String searchType, @RequestParam int no){
         Board board = boardService.getBoardDetail(no);
 
         model.addAttribute("board",getBoardDetailResponse(no));
         model.addAttribute("mode","EDIT");
+        model.addAttribute("page", page);
+        model.addAttribute("keyword", keyword);
+        model.addAttribute("searchType", searchType);
         return "board/boardnew";
     }
 
     //글 등록,수정
     @PostMapping("/board/write")
-    public String writeBoard(Model model, BoardRequest request){
+    public String writeBoard(Model model, BoardRequest request, @RequestParam(defaultValue = "0") int page, @RequestParam(required = false) String keyword, @RequestParam(required = false) String searchType){
         Board board = boardService.getBoardDetail(boardService.write(request));
         model.addAttribute("board",new BoardDetailResponse(board));
-        return "board/boarddetail";
+        model.addAttribute("page", page);
+        model.addAttribute("keyword", keyword);
+        model.addAttribute("searchType", searchType);
+        return "redirect:/board/detail?no=" + board.getNo() + "&page=" + page + "&keyword=" + keyword + "&searchType=" + searchType;
     }
 
     //글 삭제 폼으로
