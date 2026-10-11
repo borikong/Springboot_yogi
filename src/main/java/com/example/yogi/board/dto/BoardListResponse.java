@@ -1,6 +1,7 @@
 package com.example.yogi.board.dto;
 
 import com.example.yogi.board.entity.Board;
+import com.example.yogi.board.entity.Comment;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.domain.Page;
@@ -16,4 +17,6 @@ public class BoardListResponse {
     private int startPage;
     private int endPage;
     private String keyword;             // 검색 키워드
+    private int page;
+    private String searchType;
 }

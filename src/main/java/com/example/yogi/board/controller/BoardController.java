@@ -5,6 +5,7 @@ import com.example.yogi.board.dto.BoardListResponse;
 import com.example.yogi.board.dto.BoardRequest;
 import com.example.yogi.board.entity.Board;
 import com.example.yogi.board.service.BoardService;
+import com.example.yogi.board.service.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -19,6 +20,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class BoardController {
     private final BoardService boardService;
+    private final CommentService commentService;
     private final int PAGE_SIZE=10;         //한 페이지당 표시되는 게시글수
 
     //게시판 리스트
@@ -65,11 +67,11 @@ public class BoardController {
         response.setBoardPage(boardPage);
         response.setStartPage(startPage);
         response.setEndPage(endPage);
+        response.setPage(page);
+        response.setKeyword(keyword);
+        response.setSearchType(searchType);
 
-        model.addAttribute("page", page);
         model.addAttribute("board", response);
-        model.addAttribute("keyword", keyword);
-        model.addAttribute("searchType", searchType);
 
         return "board/boardlist";
     }
@@ -79,10 +81,9 @@ public class BoardController {
     public String detail(@RequestParam(defaultValue = "0") int page, @RequestParam(required = false) String keyword, @RequestParam(required = false) String searchType, Model model, @RequestParam int no){
         boardService.addCount(no); //조회수 업데이트
 
-        model.addAttribute("board",getBoardDetailResponse(no));
-        model.addAttribute("page", page);
-        model.addAttribute("keyword", keyword);
-        model.addAttribute("searchType", searchType);
+        BoardDetailResponse response= new BoardDetailResponse(boardService.getBoardDetail(no), page, keyword, searchType);
+        response.setCommentList(commentService.getCommentList(no));
+        model.addAttribute("board",response);
         return "board/boarddetail";
     }
 
@@ -97,11 +98,9 @@ public class BoardController {
     public String editBoard(Model model, @RequestParam(defaultValue = "0") int page, @RequestParam(required = false) String keyword, @RequestParam(required = false) String searchType, @RequestParam int no){
         Board board = boardService.getBoardDetail(no);
 
-        model.addAttribute("board",getBoardDetailResponse(no));
+        model.addAttribute("board",new BoardDetailResponse(boardService.getBoardDetail(no), page, keyword, searchType));
         model.addAttribute("mode","EDIT");
-        model.addAttribute("page", page);
-        model.addAttribute("keyword", keyword);
-        model.addAttribute("searchType", searchType);
+
         return "board/boardnew";
     }
 
@@ -109,17 +108,14 @@ public class BoardController {
     @PostMapping("/board/write")
     public String writeBoard(Model model, BoardRequest request, @RequestParam(defaultValue = "0") int page, @RequestParam(required = false) String keyword, @RequestParam(required = false) String searchType){
         Board board = boardService.getBoardDetail(boardService.write(request));
-        model.addAttribute("board",new BoardDetailResponse(board));
-        model.addAttribute("page", page);
-        model.addAttribute("keyword", keyword);
-        model.addAttribute("searchType", searchType);
+        model.addAttribute("board",new BoardDetailResponse(board, page, keyword, searchType));
         return "redirect:/board/detail?no=" + board.getNo() + "&page=" + page + "&keyword=" + keyword + "&searchType=" + searchType;
     }
 
     //글 삭제 폼으로
     @GetMapping("/board/delete")
     public String deleteBoard(Model model, @RequestParam int no){
-        model.addAttribute("board",getBoardDetailResponse(no));
+        model.addAttribute("board",boardService.getBoardDetail(no));
         return "board/boarddelete";
     }
 
@@ -134,10 +130,4 @@ public class BoardController {
         model.addAttribute("board",response);
         return "board/boardlist";
     }
-
-    //글 번호로 글 정보 취득후 response객체로 반환
-    private BoardDetailResponse getBoardDetailResponse(int no){
-        return new BoardDetailResponse(boardService.getBoardDetail(no));
-    }
-
 }

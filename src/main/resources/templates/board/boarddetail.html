@@ -50,34 +50,41 @@
             <!--				 TODO 댓글창--><!--				 TODO 댓글창--><!--				 TODO 댓글창--><!--				 TODO 댓글창-->
             <!-- 댓글 영역 -->
             <div class="comment_wrap"><h3>댓글</h3> <!-- 댓글 목록 -->
-                <div class="comment_list"> <!-- 댓글 1 -->
-                    <div class="comment_item">
-                        <div class="comment_info"><span class="comment_writer">user1</span> <span class="comment_date">2026-10-07 14:00</span>
+                <div th:each="vo : ${board.commentList}">
+                    <form action="/comment/delete" method="post">
+                        <input type="hidden" name="cno" id="cno" th:value="${vo.cno}">
+                        <input type="hidden" name="boardNo" id="boardNo" th:value="${board.no}">
+                        <div class="comment_list"> <!-- 댓글 1 -->
+                            <div class="comment_item">
+                                <div class="comment_info"><span class="comment_writer" th:text="${vo.cid}"></span> <span class="comment_date" th:text="${vo.regdate}"></span>
+                                </div>
+                                <div class="comment_content"><span th:text="${vo.content}"></span></div>
+                                <div class="comment_btn">
+                                    <button type="submit">삭제</button>
+                                </div>
+                            </div>
                         </div>
-                        <div class="comment_content"> 첫 번째 댓글입니다.</div>
-                        <div class="comment_btn">
-                            <button type="button">삭제</button>
-                        </div>
-                    </div> <!-- 댓글 2 -->
-                    <div class="comment_item">
-                        <div class="comment_info"><span class="comment_writer">user2</span> <span class="comment_date">2026-10-07 14:05</span>
-                        </div>
-                        <div class="comment_content"> 두 번째 댓글입니다.</div>
-                        <div class="comment_btn">
-                            <button type="button">삭제</button>
-                        </div>
-                    </div>
-                </div> <!-- 댓글 작성 -->
-                <div class="comment_write"><textarea name="content" placeholder="댓글을 입력해주세요."></textarea>
-                    <button type="button">댓글달기</button>
+                    </form>
                 </div>
+                <form action="/comment/add" method="post">
+                     <!-- 댓글 작성 -->
+                    <input type="hidden" name="board_no" id="board_no" th:value="${board.no}">
+                    <input type="hidden" name="cid" id="cid" th:value="${session.loginID}">
+                    <div class="comment_write" th:if="${session.loginID !=null}">
+                        <textarea name="content" placeholder="댓글을 입력해주세요."></textarea>
+                        <button type="submit">댓글달기</button>
+                    </div>
+                    <div class="comment_write" th:if="${session.loginID ==null}">
+                            <textarea name="content" placeholder="로그인을 하여 댓글을 입력해주세요."></textarea>
+                    </div>
+                </form>
             </div>
             <!-- 버튼 영역 -->
             <div class="bt_wrap">
                 <input type="button" class="on" value="목록"
-                       th:onclick="|location.href='@{/board/boardlist(page=${page}, searchType=${searchType}, keyword=${keyword})}'|">
+                       th:onclick="|location.href='@{/board/boardlist(page=${board.page}, searchType=${board.searchType}, keyword=${board.keyword})}'|">
                 <input type="button" value="수정"
-                       th:onclick="|location.href='@{/board/edit(page=${page}, searchType=${searchType}, keyword=${keyword}, no=${board.no})}'|">
+                       th:onclick="|location.href='@{/board/edit(page=${board.page}, searchType=${board.searchType}, keyword=${board.keyword}, no=${board.no})}'|">
             </div>
         </div>
         <br>
