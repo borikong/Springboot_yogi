@@ -17,8 +17,7 @@
   <title>여행지 추천</title>
 </head>
 
-<body data-spy="scroll" data-target=".site-navbar-target"
-      data-offset="300">
+<body data-spy="scroll" data-target=".site-navbar-target" ata-offset="300">
 <a name="header"></a>
 <div th:replace="/common/navbar"></div>
 
@@ -31,7 +30,7 @@
     </h2>
 
     <p class="recommend-description">
-      회원님이 <a th:href="@{/favorites}" class="recommend-like">♥ 찜한 여행지</a>를 바탕으로<br>
+      회원님이 <a th:href="@{/member/mypage}" class="recommend-like">♥ 찜한 여행지</a>를 바탕으로<br>
       취향이 비슷한 사용자 5명의 데이터를 분석해 추천해드려요.
     </p>
   </div>
@@ -43,43 +42,48 @@
     </div>
   </th:block>
 
+  <th:block th:if="${response.mode.name() == 'NOT_LOGIN'}">
+    <div class="recommend-empty">
+      <div class="recommend-empty-icon">♡</div>
+      <h3>로그인이 필요한 서비스예요</h3>
+      <p>로그인하고 나에게 맞는 여행지를 추천받아 보세요.</p>
 
-<!--  <div align="center">-->
-<!--    <br>-->
-<!--    <br>-->
-<!--    <br>-->
-<!--    <br>-->
+      <div class="recommend-empty-actions">
+        <a th:href="@{/member/login}" class="recommend-action-primary">
+          로그인하기
+        </a>
+        <button type="button" onclick="history.back()"
+                class="recommend-action-secondary">
+          뒤로가기
+        </button>
+      </div>
+    </div>
+  </th:block>
 
-<!--    &lt;!&ndash; 	로그인 필요 &ndash;&gt;-->
-<!--    <c:if test="${mode eq 1 or mode eq null}">-->
-<!--      <p class="msg">Login이 필요한 서비스입니다.</p>-->
-<!--      <input type="button" value="로그인 페이지로 이동"-->
-<!--             onclick="location.href='../mem/login.html'" class="msgbtn">-->
-<!--      <input type="button" value="뒤로가기"-->
-<!--             onclick="window.location.href='index.jsp';" class="msgbtn">-->
-<!--    </c:if>-->
+  <th:block th:if="${response.mode.name() == 'EMPTY_FAVORITE'}">
+    <div class="recommend-empty">
+      <div class="recommend-empty-icon">♡</div>
+      <h3>아직 찜한 여행지가 없어요</h3>
+      <p>
+        마음에 드는 여행지를 1개 이상 찜해 주세요.<br>
+        회원님의 취향을 바탕으로 여행지를 추천해드릴게요.
+      </p>
 
-<!--    &lt;!&ndash; 	찜한 리스트 없음 &ndash;&gt;-->
-<!--    <c:if test="${mode eq 2}">-->
-<!--      <p class="msg">찜한 리스트가 없습니다. 최소 1개 이상의 찜 리스트를 만들어 주세요.</p>-->
-<!--      <input type="button" value="찜 리스트 만들러 가기"-->
-<!--             onclick="location.href='index.jsp'" class="msgbtn">-->
-<!--    </c:if>-->
-<!--    <br>-->
-<!--    <br>-->
-<!--    <br>-->
-<!--    <br> <br> <br>-->
-<!--  </div>-->
+      <div class="recommend-empty-actions">
+        <a th:href="@{/searchdest}" class="recommend-action-primary">
+          여행지 둘러보기
+        </a>
+      </div>
+    </div>
+  </th:block>
 
+  <br>
+  <div th:replace="/common/footer"></div>
 
-
-<br>
-<div th:replace="/common/footer"></div>
-
-<div style="position: fixed; bottom: 50px; right: 100px;">
-  <a href="#header"><img src="pic/top.png" width="64px"></a>
+  <div style="position: fixed; bottom: 50px; right: 100px;">
+    <a href="#header"><img src="pic/top.png" width="64px"></a>
+  </div>
 </div>
-
 </body>
 </html>
 

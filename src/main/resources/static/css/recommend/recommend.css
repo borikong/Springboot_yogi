@@ -38,7 +38,95 @@
   color: #a93851;
   background: #ffd1dc;
 }
+.recommend-empty {
+  margin: 24px 0 48px;
+  padding: 56px 24px;
+  background: #fffafb;
+  border: 1px solid #f4dce2;
+  border-radius: 20px;
+  text-align: center;
+}
 
+.recommend-empty-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 76px;
+  height: 76px;
+  margin: 0 auto 24px;
+  color: #d85d79;
+  background: #ffe8ee;
+  border-radius: 50%;
+  font-size: 44px;
+  line-height: 1;
+}
+
+.recommend-empty h3 {
+  margin: 0 0 12px;
+  color: #333;
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.recommend-empty p {
+  margin: 0;
+  color: #777;
+  font-size: 16px;
+  line-height: 1.8;
+}
+
+.recommend-empty-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 28px;
+}
+
+.recommend-action-primary,
+.recommend-action-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 46px;
+  padding: 12px 24px;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  font: inherit;
+  font-weight: 600;
+  line-height: 1.4;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.recommend-action-primary {
+  color: #fff;
+  background: #c94f6a;
+}
+
+.recommend-action-primary:hover {
+  color: #fff;
+  background: #ad3e57;
+}
+
+.recommend-action-secondary {
+  color: #666;
+  background: #fff;
+  border-color: #ddd;
+}
+
+.recommend-action-secondary:hover {
+  color: #333;
+  background: #f5f5f5;
+}
+
+.recommend-action-primary:focus-visible,
+.recommend-action-secondary:focus-visible {
+  outline: 3px solid #e99caf;
+  outline-offset: 3px;
+}
 
 
 

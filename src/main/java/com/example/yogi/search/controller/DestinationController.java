@@ -17,6 +17,7 @@ import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
+@RequestMapping("/searchdest")
 public class DestinationController {
 
     private final DestinationService destinationService;
@@ -24,7 +25,7 @@ public class DestinationController {
     private static final String ACTION_PRIORITY="priSearch";
 
     //초기화면, 여행지 검색
-    @RequestMapping({"/searchdest","/searchdest/index","/searchdest/search"})
+    @RequestMapping({"","/index","/search"})
     public String index(Model model, DestinationRequest request,
                         @RequestParam(required = false) String action,
                         HttpSession session){
@@ -52,7 +53,7 @@ public class DestinationController {
     }
 
     //여행지 상세
-    @GetMapping("/searchdest/detail")
+    @GetMapping("/detail")
     public String index(Model model, DestDetailRequest request, HttpSession session){
         Destination destination = destinationService.getDestDetail(request);
         DestDetailResponse response=new DestDetailResponse(destination);
