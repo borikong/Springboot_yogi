@@ -59,7 +59,7 @@
                                 <div class="comment_info"><span class="comment_writer" th:text="${vo.cid}"></span> <span class="comment_date" th:text="${vo.regdate}"></span>
                                 </div>
                                 <div class="comment_content"><span th:text="${vo.content}"></span></div>
-                                <div class="comment_btn">
+                                <div class="comment_btn" th:if="${session.loginID ==vo.cid}">
                                     <button type="submit">삭제</button>
                                 </div>
                             </div>
