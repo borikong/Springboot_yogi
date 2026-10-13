@@ -30,6 +30,14 @@ public class CommentController {
         return "redirect:/board/detail?no=" + request.getBoard_no();
     }
 
+    @PostMapping("/edit")
+    public String edit(Model model, CommentRequest request){
+        BoardDetailResponse response = new BoardDetailResponse();
+        commentService.editComment(request);
+        model.addAttribute("board", response);
+        return "redirect:/board/detail?no=" + request.getBoard_no();
+    }
+
     @PostMapping("/delete")
     public  String delete(@RequestParam int cno, @RequestParam int boardNo){
 

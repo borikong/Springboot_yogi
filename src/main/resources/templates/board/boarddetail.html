@@ -47,7 +47,6 @@
                 <!-- 글 내용 -->
                 <pre th:text="${board.content}"></pre>
             </div>
-            <!--				 TODO 댓글창--><!--				 TODO 댓글창--><!--				 TODO 댓글창--><!--				 TODO 댓글창-->
             <!-- 댓글 영역 -->
             <div class="comment_wrap"><h3>댓글</h3> <!-- 댓글 목록 -->
                 <div th:each="vo : ${board.commentList}">
@@ -60,9 +59,23 @@
                                 </div>
                                 <div class="comment_content"><span th:text="${vo.content}"></span></div>
                                 <div class="comment_btn" th:if="${session.loginID ==vo.cid}">
+                                    <button type="button"
+                                            th:onclick="|toggleEditForm(${vo.cno})|">
+                                        수정
+                                    </button>
                                     <button type="submit">삭제</button>
                                 </div>
                             </div>
+                        </div>
+                    </form>
+                    <!-- 숨겨진 수정 폼 -->
+                    <form action="/comment/edit" method="post">
+                        <input type="hidden" name="cno" th:value="${vo.cno}">
+                        <input type="hidden" name="board_no" th:value="${board.no}">
+                        <input type="hidden" name="cid" th:value="${session.loginID}">
+                        <div class="comment_edit_form" th:id="|editForm-${vo.cno}|" style="display:none; margin-top:10px;">
+                            <textarea name="content" style="width:100%; height:80px;" th:text="${vo.content}"></textarea>
+                            <button type="submit"> 수정 </button>
                         </div>
                     </form>
                 </div>
@@ -90,5 +103,12 @@
         <br>
     </div>
     <div th:replace="/common/footer"></div>
+    <script>
+        function toggleEditForm(cno) {
+            const form = document.getElementById("editForm-" + cno);
+            form.style.display = (form.style.display === "none") ? "block" : "none";
+        }
+    </script>
+
 </body>
 </html>

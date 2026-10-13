@@ -19,7 +19,7 @@ public class CommentServiceImpl implements CommentService{
     //boardNo로 댓글리스트 취득
     @Override
     public List<Comment> getCommentList(int boardNo) {
-        return commentRepository.findByBoardNo(boardNo);
+        return commentRepository.findByBoardNoOrderByCnoDesc(boardNo);
     }
 
     //댓글 작성
@@ -31,8 +31,10 @@ public class CommentServiceImpl implements CommentService{
 
     //댓글 수정
     @Override
-    public String editComment(int boardNo, String cid, String content) {
-        return "";
+    public int editComment(CommentRequest request) {
+        Comment comment = commentRepository.findById(request.getCno()).orElseThrow(() -> new IllegalArgumentException("댓글이 없습니다."));;
+        comment.setContent(request.getContent());
+        return commentRepository.save(comment).getCno();
     }
 
     //댓글 삭제

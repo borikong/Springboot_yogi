@@ -7,7 +7,6 @@ import java.util.List;
 
 public interface CommentRepository extends JpaRepository<Comment,Integer> {
 
-    // 특정 게시글(board_no)에 달린 댓글 목록 조회
-    List<Comment> findByBoardNo(int boardNo);
+    List<Comment> findByBoardNoOrderByCnoDesc(int boardNo);
 
 }

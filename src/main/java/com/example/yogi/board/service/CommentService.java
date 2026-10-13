@@ -11,7 +11,7 @@ public interface CommentService {
     //댓글 작성
     int addComment(CommentRequest request);
     //댓글 수정
-    String editComment(int boardNo, String cid, String content);
+    int editComment(CommentRequest request);
     //댓글 삭제
     void deleteComment(int cno);
 }
