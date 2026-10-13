@@ -55,12 +55,11 @@ public class BoardController {
 
         int totalPage = boardPage.getTotalPages();
         int currentPage = boardPage.getNumber();
-        int pageBlock = 10;
 
         //현재 페이지가 속한 페이지 묶음의 시작 번호
-        int startPage = (currentPage / pageBlock) * pageBlock;
+        int startPage = (currentPage / PAGE_SIZE) * PAGE_SIZE;
         //그 묶음의 끝 번호. 단, 실제 전체 페이지보다 커지면 전체 페이지까지만
-        int endPage = Math.min(startPage + pageBlock, totalPage);
+        int endPage = Math.min(startPage + PAGE_SIZE, totalPage);
 
         response.setCount((int) boardPage.getTotalElements());
         response.setBoardList(boardPage.getContent());

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequiredArgsConstructor
@@ -20,21 +21,22 @@ public class CommentController {
     private final CommentService commentService;
 
     @PostMapping("/add")
-    public String add(Model model, CommentRequest request){
-
-        BoardDetailResponse response = new BoardDetailResponse();
-        commentService.addComment(request);
-        response.setCommentList(commentService.getCommentList(request.getBoard_no()));
-
-        model.addAttribute("board", response);
+    public String add(CommentRequest request, RedirectAttributes redirectAttributes){
+        try {
+            commentService.addComment(request);
+        }catch (IllegalArgumentException e){
+            redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
+        }
         return "redirect:/board/detail?no=" + request.getBoard_no();
     }
 
     @PostMapping("/edit")
-    public String edit(Model model, CommentRequest request){
-        BoardDetailResponse response = new BoardDetailResponse();
-        commentService.editComment(request);
-        model.addAttribute("board", response);
+    public String edit(Model model, CommentRequest request, RedirectAttributes redirectAttributes){
+        try {
+            commentService.editComment(request);
+        }catch (IllegalArgumentException e){
+            redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
+        }
         return "redirect:/board/detail?no=" + request.getBoard_no();
     }
 

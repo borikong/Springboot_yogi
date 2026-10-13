@@ -25,6 +25,7 @@ public class CommentServiceImpl implements CommentService{
     //댓글 작성
     @Override
     public int addComment(CommentRequest request) {
+        validateContent(request.getContent());
         Comment comment=Comment.create(request);
         return commentRepository.save(comment).getCno();
     }
@@ -32,7 +33,8 @@ public class CommentServiceImpl implements CommentService{
     //댓글 수정
     @Override
     public int editComment(CommentRequest request) {
-        Comment comment = commentRepository.findById(request.getCno()).orElseThrow(() -> new IllegalArgumentException("댓글이 없습니다."));;
+        validateContent(request.getContent());
+        Comment comment = commentRepository.findById(request.getCno()).orElseThrow(() -> new IllegalArgumentException("댓글이 없습니다."));
         comment.setContent(request.getContent());
         return commentRepository.save(comment).getCno();
     }
@@ -41,5 +43,12 @@ public class CommentServiceImpl implements CommentService{
     @Override
     public void deleteComment(int cno) {
         commentRepository.deleteById(cno);
+    }
+
+    //댓글 검증
+    protected void validateContent(String content){
+        if (content == null || content.isBlank()) {
+            throw new IllegalArgumentException("댓글 내용을 입력해주세요.");
+        }
     }
 }

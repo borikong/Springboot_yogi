@@ -55,7 +55,9 @@
                         <input type="hidden" name="boardNo" id="boardNo" th:value="${board.no}">
                         <div class="comment_list"> <!-- 댓글 1 -->
                             <div class="comment_item">
-                                <div class="comment_info"><span class="comment_writer" th:text="${vo.cid}"></span> <span class="comment_date" th:text="${vo.regdate}"></span>
+                                <div class="comment_info">
+                                    <span class="comment_writer" th:text="${vo.cid}"></span>
+                                    <span class="comment_date" th:text="${#dates.format(vo.regdate, 'yyyy-MM-dd HH:mm')}"></span>
                                 </div>
                                 <div class="comment_content"><span th:text="${vo.content}"></span></div>
                                 <div class="comment_btn" th:if="${session.loginID ==vo.cid}">
@@ -74,21 +76,23 @@
                         <input type="hidden" name="board_no" th:value="${board.no}">
                         <input type="hidden" name="cid" th:value="${session.loginID}">
                         <div class="comment_edit_form" th:id="|editForm-${vo.cno}|" style="display:none; margin-top:10px;">
-                            <textarea name="content" style="width:100%; height:80px;" th:text="${vo.content}"></textarea>
+                            <textarea name="content" style="width:100%; height:80px;" th:text="${vo.content}" required></textarea>
                             <button type="submit"> 수정 </button>
                         </div>
                     </form>
                 </div>
+                <!-- 댓글 작성 -->
                 <form action="/comment/add" method="post">
-                     <!-- 댓글 작성 -->
+                    <div th:if="${errorMessage != null}" th:text="${errorMessage}" style="color: red;">
+                    </div>
                     <input type="hidden" name="board_no" id="board_no" th:value="${board.no}">
                     <input type="hidden" name="cid" id="cid" th:value="${session.loginID}">
                     <div class="comment_write" th:if="${session.loginID !=null}">
-                        <textarea name="content" placeholder="댓글을 입력해주세요."></textarea>
+                        <textarea name="content" placeholder="댓글을 입력해주세요." required></textarea>
                         <button type="submit">댓글달기</button>
                     </div>
                     <div class="comment_write" th:if="${session.loginID ==null}">
-                            <textarea name="content" placeholder="로그인을 하여 댓글을 입력해주세요."></textarea>
+                            <textarea name="content" placeholder="로그인을 하여 댓글을 입력해주세요." disabled></textarea>
                     </div>
                 </form>
             </div>
